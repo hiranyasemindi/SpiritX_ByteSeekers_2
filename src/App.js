@@ -65,6 +65,16 @@ function App() {
             </ProtectedRoute>
           }
         />
+        <Route
+          path="admin/tournements/team/:id"
+          element={
+            <ProtectedRoute>
+              <Layout>
+                <Transactions />
+              </Layout>
+            </ProtectedRoute>
+          }
+        />
       </Routes>
     </BrowserRouter>
   );

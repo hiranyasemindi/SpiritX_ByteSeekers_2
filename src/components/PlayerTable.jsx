@@ -13,11 +13,11 @@ const PlayerTable = ({ playerList, onAddNewPlayer, isLoading }) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage, setItemsPerPage] = useState();
+  const [itemsPerPage, setItemsPerPage] = useState(10);
   const [isMobile, setIsMobile] = useState(false);
   const [openPopoverId, setOpenPopoverId] = useState(null);
   const popoverRef = useRef(null);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   useEffect(() => {
     setPlayers(playerList);
@@ -26,7 +26,7 @@ const PlayerTable = ({ playerList, onAddNewPlayer, isLoading }) => {
   useEffect(() => {
     const handleResize = () => {
       setIsMobile(window.innerWidth <= 768);
-      setItemsPerPage(window.innerWidth <= 768 ? 9 : 13);
+      setItemsPerPage(window.innerWidth <= 768 ? 5 : 10);
     };
 
     handleResize();
@@ -74,11 +74,27 @@ const PlayerTable = ({ playerList, onAddNewPlayer, isLoading }) => {
       : text;
   };
 
-  const handleMoreClick = (playerId) => {
+  const handleMoreClick = (playerId, event) => {
     if (openPopoverId === playerId) {
       setOpenPopoverId(null);
     } else {
       setOpenPopoverId(playerId);
+      const buttonRect = event.target.getBoundingClientRect();
+      const popover = popoverRef.current;
+      if (popover) {
+        const popoverRect = popover.getBoundingClientRect();
+        let top = buttonRect.bottom;
+        if (top + popoverRect.height > window.innerHeight) {
+          top = buttonRect.top - popoverRect.height;
+        }
+        let left = buttonRect.left;
+        if (left + popoverRect.width > window.innerWidth) {
+          left = window.innerWidth - popoverRect.width;
+        }
+
+        popover.style.top = `${top}px`;
+        popover.style.left = `${left}px`;
+      }
     }
   };
 
@@ -88,7 +104,7 @@ const PlayerTable = ({ playerList, onAddNewPlayer, isLoading }) => {
 
     try {
       const playerRef = ref(db, 'players/' + playerId);
-      await remove(playerRef); 
+      await remove(playerRef);
 
       const updatedPlayers = players.filter(player => player.id !== playerId);
       setPlayers(updatedPlayers);
@@ -109,7 +125,7 @@ const PlayerTable = ({ playerList, onAddNewPlayer, isLoading }) => {
 
   const renderPagination = () => {
     const paginationButtons = [];
-    const maxPagesToShow = 8;
+    const maxPagesToShow = 5;
     let startPage, endPage;
 
     if (totalPages <= maxPagesToShow) {
@@ -162,7 +178,7 @@ const PlayerTable = ({ playerList, onAddNewPlayer, isLoading }) => {
   };
 
   return (
-    <div className="overflow-x-auto">
+    <div className="w-full h-full">
       <div
         className={`flex ${isMobile ? "flex-col" : "items-center"
           } rounded-t-lg mb-4`}
@@ -195,19 +211,18 @@ const PlayerTable = ({ playerList, onAddNewPlayer, isLoading }) => {
           Add New Player
         </button>
       </div>
-      <table className="min-w-full bg-white border border-gray-300 shadow-lg z-0">
+      <table className="min-w-full bg-white border border-gray-300 shadow-lg">
         <thead>
           <tr>
-            <th className="py-2 px-4 border-b">Name</th>
-            <th className="py-2 px-4 border-b">University</th>
-            <th className="py-2 px-4 border-b">Category</th>
-            <th className="py-2 px-4 border-b">Total Runs</th>
-            <th className="py-2 px-4 border-b">Balls Faced</th>
-            <th className="py-2 px-4 border-b">Innings Played</th>
-            <th className="py-2 px-4 border-b">Wickets</th>
-            <th className="py-2 px-4 border-b">Overs Bowled</th>
-            <th className="py-2 px-4 border-b">Runs Conceded</th>
-            <th className="py-2 px-4 border-b">Action</th>
+            <th className="py-2 px-4 border-b text-left">University</th>
+            <th className="py-2 px-4 border-b text-left">Category</th>
+            <th className="py-2 px-4 border-b text-left">Total Runs</th>
+            <th className="py-2 px-4 border-b text-left">Balls Faced</th>
+            <th className="py-2 px-4 border-b text-left">Innings Played</th>
+            <th className="py-2 px-4 border-b text-left">Wickets</th>
+            <th className="py-2 px-4 border-b text-left">Overs Bowled</th>
+            <th className="py-2 px-4 border-b text-left">Runs Conceded</th>
+            <th className="py-2 px-4 border-b text-left">Action</th>
           </tr>
         </thead>
         <tbody>
@@ -215,8 +230,8 @@ const PlayerTable = ({ playerList, onAddNewPlayer, isLoading }) => {
             Array.from({ length: itemsPerPage }).map((_, index) => (
               <tr key={index} className="hover:bg-gray-100">
                 {Array.from({ length: 9 }).map((_, index) => (
-                  <td className="py-2 px-4 border-b">
-                    <Skeleton width={170} height={20} />
+                  <td className="py-2 px-4 border-b" key={index}>
+                    <Skeleton width={100} height={20} />
                   </td>
                 ))}
               </tr>
@@ -224,39 +239,19 @@ const PlayerTable = ({ playerList, onAddNewPlayer, isLoading }) => {
           ) : currentPlayers.length > 0 ? (
             currentPlayers.map((player, index) => (
               <tr key={index} className="hover:bg-gray-100">
-                <td
-                  className="py-2 px-4 border-b truncate cursor-pointer"
-                  title={player.Name}
-                  style={{ maxWidth: "170px" }}
-                >
-                  {truncateText(player.playerName, 30)}
-                </td>
-                <td
-                  className="py-2 px-4 border-b truncate cursor-pointer"
-                  title={player.University}
-                  style={{ maxWidth: "170px" }}
-                >
-                  {truncateText(player.university, 30)}
-                </td>
-                <td
-                  className="py-2 px-4 border-b truncate cursor-pointer"
-                  title={player.category}
-                  style={{ maxWidth: "170px" }}
-                >
-                  {truncateText(player.category, 30)}
-                </td>
-                <td className="py-2 px-4 border-b">{player.totalRuns}</td>
-                <td className="py-2 px-4 border-b">{player.ballsFaced}</td>
-                <td className="py-2 px-4 border-b">
-                  {player.inningsPlayed}
-                </td>
-                <td className="py-2 px-4 border-b">{player.wickets}</td>
-                <td className="py-2 px-4 border-b">{player.oversBowled}</td>
-                <td className="py-2 px-4 border-b">
-                  {player.runsConceded}
-                </td>
-                <td className="py-2 px-4 border-b cursor-pointer relative">
-                  <FiMoreVertical onClick={() => handleMoreClick(player.id)} />
+                <td className="py-2 px-4 border-b">{truncateText(player.university, 20)}</td>
+                <td className="py-2 px-4 border-b text-center">{player.category}</td>
+                <td className="py-2 px-4 border-b text-center">{player.totalRuns}</td>
+                <td className="py-2 px-4 border-b text-center">{player.ballsFaced}</td>
+                <td className="py-2 px-4 border-b text-center">{player.inningsPlayed}</td>
+                <td className="py-2 px-4 border-b text-center">{player.wickets}</td>
+                <td className="py-2 px-4 border-b text-center">{player.oversBowled}</td>
+                <td className="py-2 px-4 border-b text-center">{player.runsConceded}</td>
+                <td className="py-2 px-4 border-b relative">
+                  <FiMoreVertical
+                    onClick={(e) => handleMoreClick(player.id, e)}
+                    className="cursor-pointer"
+                  />
                   {openPopoverId === player.id && (
                     <div
                       ref={popoverRef}
@@ -305,4 +300,4 @@ const PlayerTable = ({ playerList, onAddNewPlayer, isLoading }) => {
   );
 };
 
-export default PlayerTable;
+export default PlayerTable;  
