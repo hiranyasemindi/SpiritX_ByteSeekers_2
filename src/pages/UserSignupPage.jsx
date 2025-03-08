@@ -1,7 +1,7 @@
 import React from "react";
 import UserLogin from "../components/auth/UserLogin";
 
-function UserLoginPage() {
+function UserSignupPage() {
     return (
         <div className="flex flex-col min-h-screen bg-gray-100">
             <UserLogin />
@@ -9,4 +9,4 @@ function UserLoginPage() {
     );
 };
 
-export default UserLoginPage
+export default UserSignupPage

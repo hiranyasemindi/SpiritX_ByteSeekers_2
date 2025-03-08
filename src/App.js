@@ -11,6 +11,7 @@ import PlayerData from "./pages/PlayerData";
 import PlayerForm from "./components/PlayerForm";
 import TeamView from "./pages/TeamView";
 import UserLogin from "./pages/UserLoginPage";
+import UserSignup from "./components/auth/UserSignup";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
         <Route path="admin/" element={<LoginPage />} />
         <Route path="/landing-page" element={<LandingPage />} />
         <Route path="/user-login" element={<UserLogin />} />
+        <Route path="/user-signup" element={<UserSignup />} />
         <Route
           path="admin/dashboard"
           element={

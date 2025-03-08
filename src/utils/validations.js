@@ -12,6 +12,53 @@ export const validateLogin = (email, password) => {
     return errors;
 };
 
+export const userValidateSignup = (username, password, confirmPassword) => {
+    const errors = {};
+
+    // Username validations
+    if (!username) {
+        errors.username = 'Username is required';
+    } else if (username.length > 12) {
+        errors.username = 'Username must be 12 characters or less';
+    }
+
+    // Password validations
+    if (!password) {
+        errors.password = 'Password is required';
+    } else if (password.length < 6) {
+        errors.password = 'Password must be 6 or more characters';
+    } else {
+        // Check for at least one lowercase letter
+        const hasLowercase = /[a-z]/.test(password);
+        // Check for at least one uppercase letter
+        const hasUppercase = /[A-Z]/.test(password);
+        // Check for at least one number
+        const hasNumber = /\d/.test(password);
+        // Check for at least one special character
+        const hasSpecialChar = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(password);
+
+        if (!hasLowercase) {
+            errors.password = 'Password must contain at least one lowercase letter';
+        } else if (!hasUppercase) {
+            errors.password = 'Password must contain at least one uppercase letter';
+        } else if (!hasNumber) {
+            errors.password = 'Password must contain at least one number';
+        } else if (!hasSpecialChar) {
+            errors.password = 'Password must contain at least one special character';
+        }
+    }
+
+    // Confirm Password validations
+    if (!confirmPassword) {
+        errors.confirmPassword = 'Confirm Password is required';
+    } else if (confirmPassword !== password) {
+        errors.confirmPassword = 'Passwords do not match';
+    }
+
+    return errors;
+};
+
+
 export const validatePlayer = (data) => {
     const errors = {};
     if (!data.playerName.trim()) {
