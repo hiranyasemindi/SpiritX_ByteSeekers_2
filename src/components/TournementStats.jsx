@@ -1,5 +1,6 @@
+import { MdOutlineSportsCricket } from 'react-icons/md';
 import Card from './Card';
-import { FaRunning, FaBowlingBall, FaMedal, FaTrophy } from 'react-icons/fa';
+import { FaRunning, FaMedal, FaTrophy } from 'react-icons/fa';
 
 function Tournament() {
     return (
@@ -11,7 +12,7 @@ function Tournament() {
             />
 
             <Card 
-                icon={<FaBowlingBall />} 
+                icon={<MdOutlineSportsCricket />} 
                 title="Overall Wickets" 
                 value="120" 
             />

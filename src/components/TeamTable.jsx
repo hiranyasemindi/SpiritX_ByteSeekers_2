@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Skeleton from 'react-loading-skeleton';
-import { FaMedal } from 'react-icons/fa'; // Import medal icons from react-icons
+import { FaMedal } from 'react-icons/fa';
 
 export default function TeamTable({ teamData, isLoading }) {
   const [currentPage, setCurrentPage] = useState(1);
@@ -24,7 +24,6 @@ export default function TeamTable({ teamData, isLoading }) {
       const prevRank = prevRankRef.current;
       const currentRank = teamData.map((team) => team.points);
       if (JSON.stringify(prevRank) !== JSON.stringify(currentRank)) {
-        // Rank has changed, Framer Motion will handle the animation
       }
     }
     prevRankRef.current = teamData.map((team) => team.points);
