@@ -6,6 +6,7 @@ import { MdOutlineSportsCricket } from "react-icons/md";
 import { LuUsersRound } from "react-icons/lu";
 import { signOut, auth } from '../services/firebase'
 import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 
 export default function Sidebar() {
   const navigate = useNavigate();
@@ -25,10 +26,10 @@ export default function Sidebar() {
     localStorage.removeItem('tokenExpiration');
     signOut(auth)
       .then(() => {
-        navigate('/login');
+        navigate('/admin');
       })
       .catch((error) => {
-        console.error("Error signing out from Firebase: ", error);
+        toast.error("Error signing out from Firebase: ", error);
       });
   }
 
@@ -62,9 +63,9 @@ export default function Sidebar() {
             </div>
             <nav className="flex-1">
               <ul className="space-y-4">
-                <NavItem icon={<HiOutlineViewGrid />} text="Dashboard" link="/dashboard" />
-                <NavItem icon={<LuUsersRound />} text="Players" link="/players" />
-                <NavItem icon={<MdOutlineSportsCricket />} text="Tournement" link="/tournement" />
+                <NavItem icon={<HiOutlineViewGrid />} text="Dashboard" link="/admin/dashboard" />
+                <NavItem icon={<LuUsersRound />} text="Players" link="/admin/players" />
+                <NavItem icon={<MdOutlineSportsCricket />} text="Tournement" link="/admin/tournement" />
               </ul>
             </nav>
             <button onClick={handleLogout} className="relative inline-flex w-full items-center justify-center px-6 py-3 font-medium bg-o rounded-md bg-secondary
