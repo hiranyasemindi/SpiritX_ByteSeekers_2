@@ -1,16 +1,16 @@
 import { initializeApp } from "firebase/app";
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { getAuth, signInWithEmailAndPassword, getIdToken } from "firebase/auth";
 
 const firebaseConfig = {
-    apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
-    authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
-    projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
-    storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
-    messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
-    appId: process.env.REACT_APP_FIREBASE_APP_ID
+    apiKey: "AIzaSyCowlfweEvsBYBJaFVwuj2qtB0hiAMBfpk",
+    authDomain: "spirit11-c85eb.firebaseapp.com",
+    projectId: "spirit11-c85eb",
+    storageBucket: "spirit11-c85eb.firebasestorage.app",
+    messagingSenderId: "166640672022",
+    appId: "1:166640672022:web:cadb6a984e939f2c560437"
 };
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
-export { auth };
+export { auth, signInWithEmailAndPassword, getIdToken };
