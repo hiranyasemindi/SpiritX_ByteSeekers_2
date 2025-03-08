@@ -6,7 +6,19 @@ const PlayerTable = ({ players, onAddNewPlayer, isLoading }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage] = useState(13);
+  const [itemsPerPage, setItemsPerPage] = useState(13);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768);
+      setItemsPerPage(window.innerWidth <= 768 ? 9 : 13);
+    };
+
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   const categories = [...new Set(players.map(player => player.Category))];
 
@@ -29,20 +41,71 @@ const PlayerTable = ({ players, onAddNewPlayer, isLoading }) => {
     return text.length > maxLength ? text.substring(0, maxLength) + '...' : text;
   };
 
+  const renderPagination = () => {
+    const paginationButtons = [];
+    const maxPagesToShow = 5;
+    let startPage, endPage;
+
+    if (totalPages <= maxPagesToShow) {
+      startPage = 1;
+      endPage = totalPages;
+    } else {
+      const halfMaxPages = Math.floor(maxPagesToShow / 2);
+      if (currentPage <= halfMaxPages) {
+        startPage = 1;
+        endPage = maxPagesToShow;
+      } else if (currentPage + halfMaxPages >= totalPages) {
+        startPage = totalPages - maxPagesToShow + 1;
+        endPage = totalPages;
+      } else {
+        startPage = currentPage - halfMaxPages;
+        endPage = currentPage + halfMaxPages;
+      }
+    }
+
+    for (let i = startPage; i <= endPage; i++) {
+      paginationButtons.push(
+        <button
+          key={i}
+          onClick={() => handlePageChange(i)}
+          className={`px-4 py-2 mx-1 border rounded-md ${
+            currentPage === i ? 'bg-primary text-white' : 'bg-white'
+          }`}
+        >
+          {i}
+        </button>
+      );
+    }
+
+    if (startPage > 1) {
+      paginationButtons.unshift(
+        <span key="start-ellipsis" className="px-4 py-2 mx-1">...</span>
+      );
+    }
+
+    if (endPage < totalPages) {
+      paginationButtons.push(
+        <span key="end-ellipsis" className="px-4 py-2 mx-1">...</span>
+      );
+    }
+
+    return paginationButtons;
+  };
+
   return (
     <div className="overflow-x-auto">
-      <div className="flex items-center rounded-t-lg mb-4">
+      <div className={`flex ${isMobile ? 'flex-col' : 'items-center'} rounded-t-lg mb-4`}>
         <input
           type="text"
           placeholder="Search by player name"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
-          className="px-4 py-3 border border-gray-300 rounded-md mr-4 flex-grow outline-primary"
+          className={`px-4 py-3 border border-gray-300 rounded-md ${isMobile ? 'mb-2' : 'mr-4'} flex-grow outline-primary`}
         />
         <select
           value={selectedCategory}
           onChange={(e) => setSelectedCategory(e.target.value)}
-          className="px-4 py-3.5 border border-gray-300 rounded-md mr-4 outline-primary"
+          className={`px-4 py-3.5 border border-gray-300 rounded-md ${isMobile ? 'mb-2' : 'mr-4'} outline-primary`}
         >
           <option value="">All Categories</option>
           {categories.map((category, index) => (
@@ -148,17 +211,7 @@ const PlayerTable = ({ players, onAddNewPlayer, isLoading }) => {
       </table>
       {totalPages > 1 && (
         <div className="flex justify-center mt-4">
-          {Array.from({ length: totalPages }, (_, index) => (
-            <button
-              key={index}
-              onClick={() => handlePageChange(index + 1)}
-              className={`px-4 py-2 mx-1 border rounded-md ${
-                currentPage === index + 1 ? 'bg-primary text-white' : 'bg-white'
-              }`}
-            >
-              {index + 1}
-            </button>
-          ))}
+          {renderPagination()}
         </div>
       )}
     </div>
