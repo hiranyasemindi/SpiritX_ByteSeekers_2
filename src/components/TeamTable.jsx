@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion'; 
+import { motion, AnimatePresence } from 'framer-motion';
 import Skeleton from 'react-loading-skeleton';
+import { FaMedal } from 'react-icons/fa'; // Import medal icons from react-icons
 
 export default function TeamTable({ teamData, isLoading }) {
   const [currentPage, setCurrentPage] = useState(1);
@@ -23,6 +24,7 @@ export default function TeamTable({ teamData, isLoading }) {
       const prevRank = prevRankRef.current;
       const currentRank = teamData.map((team) => team.points);
       if (JSON.stringify(prevRank) !== JSON.stringify(currentRank)) {
+        // Rank has changed, Framer Motion will handle the animation
       }
     }
     prevRankRef.current = teamData.map((team) => team.points);
@@ -93,8 +95,41 @@ export default function TeamTable({ teamData, isLoading }) {
 
   const sortedTeams = teamData
     .map((team) => ({ ...team, points: parseInt(team.points, 10) }))
-    .sort((a, b) => b.points - a.points) 
+    .sort((a, b) => b.points - a.points)
     .map((team, index) => ({ ...team, rank: index + 1 }));
+
+  const renderRank = (rank) => {
+    if (rank === 1) {
+      return (
+        <div className="flex items-center justify-center">
+          <FaMedal className="text-yellow-500 text-2xl" />
+          <span className="ml-2 font-bold">{rank}</span>
+        </div>
+      );
+    } else if (rank === 2) {
+      return (
+        <div className="flex items-center justify-center">
+          <FaMedal className="text-gray-400 text-2xl" />
+          <span className="ml-2 font-bold">{rank}</span>
+        </div>
+      );
+    } else if (rank === 3) {
+      return (
+        <div className="flex items-center justify-center">
+          <FaMedal className="text-yellow-700 text-2xl" />
+          <span className="ml-2 font-bold">{rank}</span>
+        </div>
+      );
+    } else {
+      return (
+        <div className="flex items-center justify-center">
+          <div className="w-8 h-8 flex items-center justify-center bg-primary text-white rounded-full font-bold">
+            {rank}
+          </div>
+        </div>
+      );
+    }
+  };
 
   return (
     <div>
@@ -121,15 +156,15 @@ export default function TeamTable({ teamData, isLoading }) {
           ) : sortedTeams.length > 0 ? (
             <AnimatePresence>
               {sortedTeams
-                .slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage) // Pagination
+                .slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage)
                 .map((team) => (
                   <motion.tr
                     key={team.id}
-                    layout 
+                    layout
                     initial={{ opacity: 0, y: -10 }}
-                    animate={{ opacity: 1, y: 0 }} 
-                    exit={{ opacity: 0, y: -10 }} 
-                    transition={{ type: 'spring', stiffness: 300, damping: 30 }} // Smooth spring animation
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -10 }}
+                    transition={{ type: 'spring', stiffness: 300, damping: 30 }}
                     className="hover:bg-gray-100"
                   >
                     <td
@@ -157,7 +192,7 @@ export default function TeamTable({ teamData, isLoading }) {
                       title={team.rank}
                       className="py-2 px-4 border-b text-center cursor-pointer"
                     >
-                      {team.rank}
+                      {renderRank(team.rank)}
                     </td>
                   </motion.tr>
                 ))}
