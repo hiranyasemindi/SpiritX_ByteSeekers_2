@@ -12,17 +12,22 @@ const PlayerForm = () => {
     const location = useLocation();
 
     const isUpdate = location.pathname.includes("edit");
+    const { player } = location.state || {};
+
+    if (isUpdate && !player) {
+        navigate("/admin/players");
+    }
 
     const [formData, setFormData] = useState({
-        playerName: "",
-        university: "",
-        category: "",
-        totalRuns: "",
-        ballsFaced: "",
-        inningsPlayed: "",
-        wickets: "",
-        oversBowled: "",
-        runsConceded: ""
+        playerName: player?.playerName || "",
+        university: "" || player?.university,
+        category: "" || player?.category,
+        totalRuns: "" || player?.totalRuns,
+        ballsFaced: "" || player?.ballsFaced,
+        inningsPlayed: "" || player?.inningsPlayed,
+        wickets: "" || player?.wickets,
+        oversBowled: "" || player?.oversBowled,
+        runsConceded: "" || player?.runsConceded,
     });
 
     const [errors, setErrors] = useState({});
@@ -56,25 +61,6 @@ const PlayerForm = () => {
         fetchData();
     }, []);
 
-    useEffect(() => {
-        if (isUpdate) {
-            const playerId = location.pathname.split("/").pop();
-            console.log(`Fetching data for player ID: ${playerId}`);
-            const playerData = {
-                playerName: "John Doe",
-                university: "uni1",
-                category: "batsman",
-                totalRuns: 500,
-                ballsFaced: 300,
-                inningsPlayed: 10,
-                wickets: 10,
-                oversBowled: 50,
-                runsConceded: 200
-            };
-            setFormData(playerData);
-        }
-    }, [isUpdate, location.pathname]);
-
 
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -88,7 +74,16 @@ const PlayerForm = () => {
 
         if (Object.keys(validationErrors).length === 0) {
             if (isUpdate) {
-                console.log("Updating Player Data:", formData);
+                const playerRef = ref(db, `players/${player.id}`);
+                set(playerRef, formData)
+                    .then(() => {
+                        toast.success("Player updated successfully");
+                        navigate("/admin/players");
+                    })
+                    .catch((error) => {
+                        toast.error("Error updating player: " + error.message);
+                    }
+                    );
             } else {
                 const newPlayerRef = push(ref(db, 'players'));
                 set(newPlayerRef, formData)
