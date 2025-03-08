@@ -1,11 +1,14 @@
-import { FaUsers, FaCreditCard, FaCalendarCheck, FaCog, FaChartBar, FaSignOutAlt, FaBars, FaTimes } from "react-icons/fa";
+import { FaSignOutAlt, FaBars, FaTimes } from "react-icons/fa";
 import { HiOutlineViewGrid } from "react-icons/hi";
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { MdOutlineSportsCricket } from "react-icons/md";
+import { LuUsersRound } from "react-icons/lu";
 
 export default function Sidebar() {
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
-  const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false); 
+  const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false);
+
   useEffect(() => {
     const handleResize = () => {
       setIsMobile(window.innerWidth <= 768);
@@ -19,7 +22,7 @@ export default function Sidebar() {
       {isMobile && (
         <button
           onClick={() => setMobileSidebarOpen(!mobileSidebarOpen)}
-          className="fixed top-4 left-4 p-2 z-50 bg-white rounded-lg shadow-lg"
+          className="fixed top-4 left-4 p-2 z-50 bg-white rounded-lg shadow-sm"
         >
           {mobileSidebarOpen ? <FaTimes className="text-xl" /> : <FaBars className="text-xl" />}
         </button>
@@ -28,8 +31,8 @@ export default function Sidebar() {
         {(isMobile ? mobileSidebarOpen : true) && (
           <motion.div
             initial={{ x: isMobile ? -300 : 0 }}
-            animate={{ x: 0 }} 
-            exit={{ x: isMobile ? -300 : 0 }} 
+            animate={{ x: 0 }}
+            exit={{ x: isMobile ? -300 : 0 }}
             transition={{ duration: 0.3, ease: "easeInOut" }}
             className={`h-screen bg-white text-gray-900 p-4 flex flex-col shadow-lg fixed lg:relative z-40 ${
               isMobile ? "w-64" : "w-80"
@@ -46,12 +49,12 @@ export default function Sidebar() {
             <nav className="flex-1">
               <ul className="space-y-4">
                 <NavItem icon={<HiOutlineViewGrid />} text="Dashboard" link="/dashboard" />
-                <NavItem icon={<FaUsers />} text="Players" link="/players" />
-                <NavItem icon={<FaCreditCard />} text="Tournement" link="/tournement" />
+                <NavItem icon={<LuUsersRound />} text="Players" link="/players" />
+                <NavItem icon={<MdOutlineSportsCricket />} text="Tournement" link="/tournement" />
               </ul>
             </nav>
-            <button className="relative inline-flex w-full items-center justify-center px-6 py-3 text-lg font-medium text-white rounded-md
-                bg-primary focus:outline-none focus:ring-4 focus:ring-secondary transition-all duration-500 ease-in-out">
+            <button className="relative inline-flex w-full items-center justify-center px-6 py-3 font-medium bg-o rounded-md bg-secondary
+                text-primary focus:outline-none focus:ring-4 focus:ring-secondary transition-all duration-500 ease-in-out">
               <FaSignOutAlt />
               <span className="ps-3">Logout</span>
             </button>
@@ -69,12 +72,16 @@ export default function Sidebar() {
 }
 
 function NavItem({ icon, text, link }) {
+  const isActive = window.location.pathname === link;
+
   return (
     <li
-      className="flex items-center space-x-3 p-2 hover:bg-gray-100 rounded-md cursor-pointer"
-      onClick={() => window.location.href = link}
+      className={`flex items-center space-x-3 px-6 py-3 rounded-md cursor-pointer ${
+        isActive ? "bg-primary text-white" : "hover:bg-gray-100"
+      }`}
+      onClick={() => (window.location.href = link)}
     >
-      <span className="text-2xl text-gray-900">{icon}</span>
+      <span className={`text-2xl ${isActive ? "text-white" : "text-gray-900"}`}>{icon}</span>
       <span>{text}</span>
     </li>
   );
