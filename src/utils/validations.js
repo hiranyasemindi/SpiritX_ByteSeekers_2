@@ -14,8 +14,6 @@ export const validateLogin = (email, password) => {
 
 export const validatePlayer = (data) => {
     const errors = {};
-
-    // Check for required fields first
     if (!data.playerName.trim()) {
         errors.playerName = "Player name is required";
     }
@@ -28,7 +26,6 @@ export const validatePlayer = (data) => {
         errors.category = "Category is required";
     }
 
-    // Check if the numeric fields are positive numbers if required fields are valid
     if (data.totalRuns && data.totalRuns < 0) {
         errors.totalRuns = "Total Runs must be a positive number";
     } else if (!data.totalRuns) {
