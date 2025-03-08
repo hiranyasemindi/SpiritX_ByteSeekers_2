@@ -57,9 +57,9 @@ export default function Sidebar() {
               <img
                 src="/images/logo.png"
                 alt="App Logo"
-                className="w-32 h-32 rounded-2xl"
+                className="h-24 rounded-2xl"
               />
-              <h1 className="text-2xl font-bold text-[#000000]">Spirit11 Admin</h1>
+              <h1 className="text-2xl font-bold mt-3 text-[#000000]">Spirit11 Admin</h1>
             </div>
             <nav className="flex-1">
               <ul className="space-y-4">
