@@ -7,11 +7,11 @@ export default function Sidebar() {
   const [expanded, setExpanded] = useState(true);
   const location = useLocation();
 
-  const isActive = (path) => {
-    return location.pathname === path
-      ? "bg-[#FF5B27] text-[#FFFFFFFF]"
-      : "text-[#000000]";
-  };
+//   const isActive = (path) => {
+//     return location.pathname === path
+//       ? "bg-[#FF5B27] text-[#FFFFFFFF]"
+//       : "text-[#000000]";
+//   };
   return (
     <div className={`h-screen ${expanded ? "w-64" : "w-20"} bg-gray-900 text-white p-4 flex flex-col transition-all duration-300`}>
       
