@@ -1,22 +1,20 @@
-// pages/LandingPage.js
 import React from 'react';
 import Header from '../components/Header';
 import Button from '../components/Button';
 import Carousel from '../components/Carousel';
-import Lottie from 'lottie-react'; // Import Lottie for animations
-import lottie1 from '../images/lottie1.json'; // Import the Lottie animation file
+import Lottie from 'lottie-react';
+import lottie1 from '../images/lottie1.json'; 
 import ParagraphCard from '../components/ParagraphCard';
 import Footer from '../components/Footer';
+import { useNavigate } from 'react-router-dom';
 
 const LandingPage = () => {
+    const navigate = useNavigate()
     return (
         <div className="min-h-screen bg-gray-100">
-            {/* Header */}
             <Header />
 
-            {/* Landing Page */}
             <main className="relative h-screen flex items-center justify-center">
-                {/* Background Image with Overlay */}
                 <div className="absolute inset-0">
                     <img
                         src="https://img.freepik.com/free-photo/cricket-match-with-player_23-2151702205.jpg?t=st=1741438164~exp=1741441764~hmac=5a50d5326ce1361007787013efbd9752947ba815fb0d134bc9ba792b9f447005&w=1380"
@@ -26,7 +24,6 @@ const LandingPage = () => {
                     <div className="absolute inset-0 bg-black bg-opacity-50"></div>
                 </div>
 
-                {/* Text Overlay */}
                 <div className="relative z-10 text-center text-white max-w-2xl px-4">
                     <h1 className="text-5xl font-bold mb-6">Welcome to CricketHub</h1>
                     <p className="text-xl mb-8">
@@ -36,12 +33,9 @@ const LandingPage = () => {
                 </div>
             </main>
 
-            {/* University Carousel Section */}
             <Carousel />
 
-            {/* New Section: Combined Lottie and Paragraph Card */}
             <section className="h-screen flex items-center justify-center bg-gray-50 relative overflow-hidden">
-                {/* Wavy Background using SVG */}
                 <div className="absolute inset-0">
                     <svg viewBox="0 0 1440 320" className="absolute bottom-0 w-full">
                         <path
@@ -52,23 +46,16 @@ const LandingPage = () => {
                     </svg>
                 </div>
 
-                {/* Content Inside the Card */}
                 <div className="relative w-full max-w-5xl mx-auto p-6 bg-white rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 flex flex-col md:flex-row items-center justify-center gap-8">
-                    {/* Lottie Animation */}
                     <div className="w-full md:w-1/2">
                         <Lottie animationData={lottie1} loop={true} />
                     </div>
-
-                    {/* Text Content */}
                     <ParagraphCard />
-
                 </div>
             </section>
 
             <section className="h-screen flex items-center justify-center bg-gray-50 relative overflow-hidden">
-                {/* Content Inside the Section */}
                 <div className="relative w-full max-w-6xl mx-auto p-8 flex flex-col md:flex-row items-center gap-12">
-                    {/* Left Side - Paragraph Content */}
                     <div className="w-full md:w-1/2 text-center md:text-left">
                         <h2 className="text-4xl font-bold mb-6 text-primary">
                             Build Your Ultimate Team & Compete!
@@ -82,12 +69,11 @@ const LandingPage = () => {
                             Whether you are an experienced captain or just starting out, our platform gives you the chance to build and
                             manage a competitive cricket team. Are you ready to lead your team to victory?
                         </p>
-                        <Button onClick={() => alert('Start Building Your Team!')}>
-                            Start Your Team
+                        <Button onClick={() => navigate('/user/login')}>
+                            Start Compete
                         </Button>
                     </div>
 
-                    {/* Right Side - Image */}
                     <div className="w-full md:w-1/2 flex justify-center">
                         <img
                             src="./images/img1.png"
@@ -97,9 +83,7 @@ const LandingPage = () => {
                     </div>
                 </div>
             </section>
-
             <Footer />
-
         </div>
     );
 };

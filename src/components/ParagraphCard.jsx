@@ -1,6 +1,5 @@
-// components/PlayerInfoCard.js
 import React from 'react';
-import Button from './Button'; // Import your custom Button component
+import Button from './Button';
 
 const ParagraphCard = () => {
     return (

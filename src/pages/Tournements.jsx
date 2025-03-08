@@ -5,35 +5,35 @@ import TeamTable from '../components/TeamTable'
 export default function Tournements() {
   const tournements = [
     {
-      id:1,
+      id: 1,
       Name: 'Chamika Chandimal',
       Team: 'University of the Visual & Performing Arts',
       points: 100000,
     },
     {
-      id:2,
+      id: 2,
       Name: 'Chamika Chandimal',
       Team: 'University of the Visual & Performing Arts',
       points: 130,
     },
     {
-      id:3,
+      id: 3,
       Name: 'Chamika Chandimal',
       Team: 'University of the Visual & Performing Arts',
       points: 100,
     },
     {
-      id:4,
+      id: 4,
       Name: 'Chamika Chandimal',
       Team: 'University of the Visual & Performing Arts',
       points: 100,
     },
   ]
   return (
-   <>
+    <>
       <h1 className="text-2xl font-bold mb-6">Tournement Summary</h1>
-    <TournementStats />
-    <TeamTable teamData={tournements}/>
-   </>
+      <TournementStats />
+      <TeamTable teamData={tournements} />
+    </>
   )
 }

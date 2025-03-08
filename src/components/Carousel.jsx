@@ -1,4 +1,3 @@
-// components/Carousel.js
 import React, { useRef } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Autoplay } from 'swiper/modules';
@@ -58,7 +57,6 @@ const Carousel = () => {
                     ))}
                 </Swiper>
 
-                {/* Custom Navigation Buttons */}
                 
             </div>
         </section>

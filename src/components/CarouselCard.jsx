@@ -1,4 +1,3 @@
-// components/Card.js
 import React from 'react';
 
 const CarouselCard = ({ logo, name, description }) => {
