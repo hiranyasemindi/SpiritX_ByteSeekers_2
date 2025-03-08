@@ -4,7 +4,7 @@ import Input from "./Input";
 import Select from "./Selector";
 import Button from "./Button";
 
-const AddPlayerForm = () => {
+const PlayerForm = () => {
     const navigate = useNavigate();
     const location = useLocation();
 
@@ -163,4 +163,4 @@ const AddPlayerForm = () => {
     );
 };
 
-export default AddPlayerForm;
+export default PlayerForm;
