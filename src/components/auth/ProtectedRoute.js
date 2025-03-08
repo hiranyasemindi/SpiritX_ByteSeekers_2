@@ -6,7 +6,7 @@ const ProtectedRoute = ({ children }) => {
   const tokenExpiration = localStorage.getItem("tokenExpiration");
 
   if (!token || !tokenExpiration || Date.now() > tokenExpiration) {
-    return <Navigate to="admin/login" />;
+    return <Navigate to="/admin" />;
   }
 
   return children;
