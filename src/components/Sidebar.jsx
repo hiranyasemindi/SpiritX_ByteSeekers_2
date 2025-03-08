@@ -4,8 +4,11 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { MdOutlineSportsCricket } from "react-icons/md";
 import { LuUsersRound } from "react-icons/lu";
+import { signOut, auth } from '../services/firebase'
+import { useNavigate } from "react-router-dom";
 
 export default function Sidebar() {
+  const navigate = useNavigate();
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
   const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false);
 
@@ -16,6 +19,18 @@ export default function Sidebar() {
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
+
+  const handleLogout = () => {
+    localStorage.removeItem('authToken');
+    localStorage.removeItem('tokenExpiration');
+    signOut(auth)
+      .then(() => {
+        navigate('/login');
+      })
+      .catch((error) => {
+        console.error("Error signing out from Firebase: ", error);
+      });
+  }
 
   return (
     <>
@@ -34,9 +49,8 @@ export default function Sidebar() {
             animate={{ x: 0 }}
             exit={{ x: isMobile ? -300 : 0 }}
             transition={{ duration: 0.3, ease: "easeInOut" }}
-            className={`h-screen bg-white text-gray-900 p-4 flex flex-col shadow-lg fixed lg:relative z-40 ${
-              isMobile ? "w-64" : "w-80"
-            }`}
+            className={`h-screen bg-white text-gray-900 p-4 flex flex-col shadow-lg fixed lg:relative z-40 ${isMobile ? "w-64" : "w-80"
+              }`}
           >
             <div className="flex flex-col items-center justify-center mb-8">
               <img
@@ -53,7 +67,7 @@ export default function Sidebar() {
                 <NavItem icon={<MdOutlineSportsCricket />} text="Tournement" link="/tournement" />
               </ul>
             </nav>
-            <button className="relative inline-flex w-full items-center justify-center px-6 py-3 font-medium bg-o rounded-md bg-secondary
+            <button onClick={handleLogout} className="relative inline-flex w-full items-center justify-center px-6 py-3 font-medium bg-o rounded-md bg-secondary
                 text-primary focus:outline-none focus:ring-4 focus:ring-secondary transition-all duration-500 ease-in-out">
               <FaSignOutAlt />
               <span className="ps-3">Logout</span>
@@ -76,9 +90,8 @@ function NavItem({ icon, text, link }) {
 
   return (
     <li
-      className={`flex items-center space-x-3 px-6 py-3 rounded-md cursor-pointer ${
-        isActive ? "bg-primary text-white" : "hover:bg-gray-100"
-      }`}
+      className={`flex items-center space-x-3 px-6 py-3 rounded-md cursor-pointer ${isActive ? "bg-primary text-white" : "hover:bg-gray-100"
+        }`}
       onClick={() => (window.location.href = link)}
     >
       <span className={`text-2xl ${isActive ? "text-white" : "text-gray-900"}`}>{icon}</span>
