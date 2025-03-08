@@ -11,7 +11,7 @@ const Footer = () => {
           rel="noopener noreferrer"
           className="text-[#FF5B27] hover:underline"
         >
-          iamvirul
+          ByteSkeers
         </a>
       </p>
     </footer>
