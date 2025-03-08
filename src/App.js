@@ -8,6 +8,7 @@ import Players from "./pages/Players";
 import Dashboard from "./pages/Dashboard";
 import LandingPage from "./pages/LandingPage";
 import PlayerForm from "./components/PlayerForm";
+import PlayerData from "./pages/PlayerData";
 
 function App() {
   return (
@@ -71,6 +72,16 @@ function App() {
             <ProtectedRoute>
               <Layout>
                 <Transactions />
+              </Layout>
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="admin/players/:id"
+          element={
+            <ProtectedRoute>
+              <Layout>
+                <PlayerData />
               </Layout>
             </ProtectedRoute>
           }
