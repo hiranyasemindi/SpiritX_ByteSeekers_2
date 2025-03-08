@@ -11,9 +11,9 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<LoginPage />} />
+        <Route path="admin/" element={<LoginPage />} />
         <Route
-          path="/dashboard"
+          path="admin/dashboard"
           element={
             <ProtectedRoute>
               <Layout>
@@ -23,7 +23,7 @@ function App() {
           }
         />
         <Route
-          path="/players"
+          path="admin/players"
           element={
             <ProtectedRoute>
               <Layout>
@@ -33,7 +33,7 @@ function App() {
           }
         />
         <Route
-          path="/tournement"
+          path="admin/tournement"
           element={
             <ProtectedRoute>
               <Layout>

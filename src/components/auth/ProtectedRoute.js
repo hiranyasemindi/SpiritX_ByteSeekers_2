@@ -3,10 +3,12 @@ import { Navigate } from "react-router-dom";
 
 const ProtectedRoute = ({ children }) => {
   const token = localStorage.getItem("authToken");
+  const tokenExpiration = localStorage.getItem("tokenExpiration");
 
-  if (token) {
-    return <Navigate to="/" />;
+  if (!token || !tokenExpiration || Date.now() > tokenExpiration) {
+    return <Navigate to="admin/login" />;
   }
+
   return children;
 };
 
