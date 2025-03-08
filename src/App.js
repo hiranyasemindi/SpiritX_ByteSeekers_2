@@ -10,6 +10,7 @@ import LandingPage from "./pages/LandingPage";
 import PlayerData from "./pages/PlayerData";
 import PlayerForm from "./components/PlayerForm";
 import TeamView from "./pages/TeamView";
+import UserLogin from "./pages/UserLogin";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
       <Routes>
         <Route path="admin/" element={<LoginPage />} />
         <Route path="/landing-page" element={<LandingPage />} />
+        <Route path="/user-login" element={<UserLogin />} />
         <Route
           path="admin/dashboard"
           element={
