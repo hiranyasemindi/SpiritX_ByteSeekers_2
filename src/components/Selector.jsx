@@ -12,14 +12,14 @@ const Select = ({ label, options = [], value, onChange, styles, name }) => {
                 onChange={onChange}
                 name={name}
                 className="
-          block w-full px-4 py-3 text-md font-normal text-gray-700 placeholder-gray-400 border-[1px] border-gray-300 rounded-md
-          focus:outline-none focus:ring-2 focus:ring-secondary focus:border-primary transition-all duration-300 ease-in-out
-          bg-white hover:bg-gray-50 focus:bg-white"
+                    block w-full px-4 py-3 text-md font-normal text-gray-700 placeholder-gray-400 border-[1px] border-gray-300 rounded-md
+                    focus:outline-none focus:ring-2 focus:ring-secondary focus:border-primary transition-all duration-300 ease-in-out
+                    bg-white hover:bg-gray-50 focus:bg-white"
             >
                 <option value="" disabled>Select an option</option>
                 {options.map((option, index) => (
-                    <option key={index} value={option.value}>
-                        {option.label}
+                    <option key={index} value={option.id}>
+                        {option.name}
                     </option>
                 ))}
             </select>
