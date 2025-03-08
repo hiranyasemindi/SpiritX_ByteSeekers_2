@@ -11,7 +11,7 @@ function calculateBowlingStrikeRate(totalBallsBowled, totalWicketsTaken) {
 }
 
 function calculateEconomyRate(totalRunsConceded, totalBallsBowled) {
-    return (totalRunsConceded / (totalBallsBowled*6)) * 6;
+    return (totalRunsConceded / totalBallsBowled) * 6;
 }
 
 function calculatePlayerPoints(battingStrikeRate, battingAverage, bowlingStrikeRate, economyRate) {
