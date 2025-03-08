@@ -4,7 +4,6 @@ import Button from '../Button';
 import { userValidateSignup } from '../../utils/validations';
 import { getDatabase, ref, set } from 'firebase/database';
 import CryptoJS from 'crypto-js';
-import { v4 as uuidv4 } from 'uuid';
 
 const UserSignup = () => {
     const [username, setUsername] = useState('');
