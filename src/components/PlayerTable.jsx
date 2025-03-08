@@ -74,7 +74,6 @@ const PlayerTable = ({ players, onAddNewPlayer, isLoading }) => {
         </thead>
         <tbody>
           {isLoading ? (
-            // Show skeleton loading states
             Array.from({ length: itemsPerPage }).map((_, index) => (
               <tr key={index} className="hover:bg-gray-100">
                 <td className="py-2 px-4 border-b">
