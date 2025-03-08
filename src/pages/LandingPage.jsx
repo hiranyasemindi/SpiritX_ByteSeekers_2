@@ -6,7 +6,7 @@ import Carousel from '../components/Carousel';
 import Lottie from 'lottie-react'; // Import Lottie for animations
 import lottie1 from '../images/lottie1.json'; // Import the Lottie animation file
 import ParagraphCard from '../components/ParagraphCard';
-
+import Footer from '../components/Footer';
 
 const LandingPage = () => {
     return (
@@ -32,7 +32,7 @@ const LandingPage = () => {
                     <p className="text-xl mb-8">
                         Your ultimate destination for live scores, player stats, match schedules, and everything cricket!
                     </p>
-                    <Button onClick={() => alert('Explore More Clicked!')}>Explore More</Button>
+
                 </div>
             </main>
 
@@ -60,12 +60,45 @@ const LandingPage = () => {
                     </div>
 
                     {/* Text Content */}
-                    <ParagraphCard/>
-                    
+                    <ParagraphCard />
+
                 </div>
             </section>
 
-            
+            <section className="h-screen flex items-center justify-center bg-gray-50 relative overflow-hidden">
+                {/* Content Inside the Section */}
+                <div className="relative w-full max-w-6xl mx-auto p-8 flex flex-col md:flex-row items-center gap-12">
+                    {/* Left Side - Paragraph Content */}
+                    <div className="w-full md:w-1/2 text-center md:text-left">
+                        <h2 className="text-4xl font-bold mb-6 text-primary">
+                            Build Your Ultimate Team & Compete!
+                        </h2>
+                        <p className="text-lg text-gray-700 mb-6 text-justify">
+                            We have some of the most talented cricket players from top universities.
+                            You can form your own dream team, strategize with them, and compete in exciting tournaments!
+                            Showcase your skills and experience the thrill of university-level cricket like never before.
+                        </p>
+                        <p className="text-lg text-gray-700 mb-6 text-justify">
+                            Whether you are an experienced captain or just starting out, our platform gives you the chance to build and
+                            manage a competitive cricket team. Are you ready to lead your team to victory?
+                        </p>
+                        <Button onClick={() => alert('Start Building Your Team!')}>
+                            Start Your Team
+                        </Button>
+                    </div>
+
+                    {/* Right Side - Image */}
+                    <div className="w-full md:w-1/2 flex justify-center">
+                        <img
+                            src="./images/img1.png"
+                            alt="Team Celebration"
+                            className="w-82 h-82 object-cover rounded-lg"
+                        />
+                    </div>
+                </div>
+            </section>
+
+            <Footer />
 
         </div>
     );
