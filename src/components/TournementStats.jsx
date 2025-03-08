@@ -4,7 +4,7 @@ import { FaRunning, FaMedal, FaTrophy } from 'react-icons/fa';
 
 function Tournament() {
     return (
-        <div className="p-6 max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="pb-6 w-full mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             <Card 
                 icon={<FaRunning />} 
                 title="Overall Runs" 

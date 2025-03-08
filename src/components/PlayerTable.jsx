@@ -238,7 +238,11 @@ const PlayerTable = ({ playerList, onAddNewPlayer, isLoading }) => {
             ))
           ) : currentPlayers.length > 0 ? (
             currentPlayers.map((player, index) => (
-              <tr key={index} className="hover:bg-gray-100">
+              <tr
+                key={index}
+                className="hover:bg-gray-100 cursor-pointer"
+                onClick={() => navigate(`${player.id}`, { state: { player } })}
+              >
                 <td className="py-2 px-4 border-b">{truncateText(player.university, 20)}</td>
                 <td className="py-2 px-4 border-b text-center">{player.category}</td>
                 <td className="py-2 px-4 border-b text-center">{player.totalRuns}</td>
@@ -248,14 +252,19 @@ const PlayerTable = ({ playerList, onAddNewPlayer, isLoading }) => {
                 <td className="py-2 px-4 border-b text-center">{player.oversBowled}</td>
                 <td className="py-2 px-4 border-b text-center">{player.runsConceded}</td>
                 <td className="py-2 px-4 border-b relative">
+                  {/* Prevent row click when clicking this button */}
                   <FiMoreVertical
-                    onClick={(e) => handleMoreClick(player.id, e)}
+                    onClick={(e) => {
+                      e.stopPropagation(); // Prevents row click event
+                      handleMoreClick(player.id, e);
+                    }}
                     className="cursor-pointer"
                   />
                   {openPopoverId === player.id && (
                     <div
                       ref={popoverRef}
                       className="absolute right-0 mt-2 w-48 rounded-md z-50 shadow-lg bg-white ring-1 ring-black ring-opacity-5"
+                      onClick={(e) => e.stopPropagation()} // Prevent row navigation when interacting with the menu
                     >
                       <div className="py-1">
                         <div
@@ -292,6 +301,7 @@ const PlayerTable = ({ playerList, onAddNewPlayer, isLoading }) => {
             </tr>
           )}
         </tbody>
+
       </table>
       {totalPages > 1 && (
         <div className="flex justify-center mt-4">{renderPagination()}</div>
