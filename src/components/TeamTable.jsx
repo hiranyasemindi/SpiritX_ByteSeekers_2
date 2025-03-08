@@ -2,13 +2,14 @@ import React, { useEffect, useRef, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Skeleton from 'react-loading-skeleton';
 import { FaMedal } from 'react-icons/fa';
+import { useNavigate } from 'react-router-dom';
 
 export default function TeamTable({ teamData, isLoading }) {
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(13);
   const totalPages = Math.ceil(teamData.length / itemsPerPage);
   const prevRankRef = useRef();
-
+  const navigate = useNavigate();
   useEffect(() => {
     const handleResize = () => {
       setItemsPerPage(window.innerWidth <= 768 ? 9 : 13);
@@ -165,6 +166,9 @@ export default function TeamTable({ teamData, isLoading }) {
                     exit={{ opacity: 0, y: -10 }}
                     transition={{ type: 'spring', stiffness: 300, damping: 30 }}
                     className="hover:bg-gray-100"
+                    onClick={()=>{
+                      navigate(`team/${team.id}`)
+                    }}
                   >
                     <td
                       className="py-2 px-4 border-b truncate cursor-pointer text-center"

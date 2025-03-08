@@ -8,6 +8,7 @@ import Players from "./pages/Players";
 import Dashboard from "./pages/Dashboard";
 import LandingPage from "./pages/LandingPage";
 import PlayerForm from "./components/PlayerForm";
+import TeamView from "./pages/TeamView";
 
 function App() {
   return (
@@ -70,7 +71,7 @@ function App() {
           element={
             <ProtectedRoute>
               <Layout>
-                <Transactions />
+                <TeamView />
               </Layout>
             </ProtectedRoute>
           }
