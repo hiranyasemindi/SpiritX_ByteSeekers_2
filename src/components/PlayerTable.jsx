@@ -1,16 +1,16 @@
-import React, { useState, useEffect } from 'react';
-import { FiMoreVertical } from 'react-icons/fi';
-import { MdOutlineDelete } from 'react-icons/md';
-import Skeleton from 'react-loading-skeleton';
-import 'react-loading-skeleton/dist/skeleton.css';
+import React, { useState, useEffect } from "react";
+import { FiMoreVertical } from "react-icons/fi";
+import { MdOutlineDelete } from "react-icons/md";
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 
 const PlayerTable = ({ players, onAddNewPlayer, isLoading }) => {
-  const [searchTerm, setSearchTerm] = useState('');
-  const [selectedCategory, setSelectedCategory] = useState('');
+  const [searchTerm, setSearchTerm] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState();
   const [isMobile, setIsMobile] = useState(false);
-  const [openPopoverId, setOpenPopoverId] = useState(null); 
+  const [openPopoverId, setOpenPopoverId] = useState(null);
 
   useEffect(() => {
     const handleResize = () => {
@@ -19,20 +19,24 @@ const PlayerTable = ({ players, onAddNewPlayer, isLoading }) => {
     };
 
     handleResize();
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  const categories = [...new Set(players.map(player => player.Category))];
+  const categories = [...new Set(players.map((player) => player.Category))];
 
-  const filteredPlayers = players.filter(player =>
-    player.Name.toLowerCase().includes(searchTerm.toLowerCase()) &&
-    (selectedCategory === '' || player.Category === selectedCategory)
+  const filteredPlayers = players.filter(
+    (player) =>
+      player.Name.toLowerCase().includes(searchTerm.toLowerCase()) &&
+      (selectedCategory === "" || player.Category === selectedCategory)
   );
 
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentPlayers = filteredPlayers.slice(indexOfFirstItem, indexOfLastItem);
+  const currentPlayers = filteredPlayers.slice(
+    indexOfFirstItem,
+    indexOfLastItem
+  );
 
   const totalPages = Math.ceil(filteredPlayers.length / itemsPerPage);
 
@@ -41,7 +45,9 @@ const PlayerTable = ({ players, onAddNewPlayer, isLoading }) => {
   };
 
   const truncateText = (text, maxLength) => {
-    return text.length > maxLength ? text.substring(0, maxLength) + '...' : text;
+    return text.length > maxLength
+      ? text.substring(0, maxLength) + "..."
+      : text;
   };
 
   const handleMoreClick = (playerId) => {
@@ -53,7 +59,7 @@ const PlayerTable = ({ players, onAddNewPlayer, isLoading }) => {
   };
 
   const handleDelete = (playerId) => {
-    console.log('Deleted player ID:', playerId);
+    console.log("Deleted player ID:", playerId);
     setOpenPopoverId(null);
   };
 
@@ -85,7 +91,7 @@ const PlayerTable = ({ players, onAddNewPlayer, isLoading }) => {
           key={i}
           onClick={() => handlePageChange(i)}
           className={`px-4 py-2 mx-1 border rounded-md ${
-            currentPage === i ? 'bg-primary text-white' : 'bg-white'
+            currentPage === i ? "bg-primary text-white" : "bg-white"
           }`}
         >
           {i}
@@ -95,13 +101,17 @@ const PlayerTable = ({ players, onAddNewPlayer, isLoading }) => {
 
     if (startPage > 1) {
       paginationButtons.unshift(
-        <span key="start-ellipsis" className="px-4 py-2 mx-1">...</span>
+        <span key="start-ellipsis" className="px-4 py-2 mx-1">
+          ...
+        </span>
       );
     }
 
     if (endPage < totalPages) {
       paginationButtons.push(
-        <span key="end-ellipsis" className="px-4 py-2 mx-1">...</span>
+        <span key="end-ellipsis" className="px-4 py-2 mx-1">
+          ...
+        </span>
       );
     }
 
@@ -110,18 +120,26 @@ const PlayerTable = ({ players, onAddNewPlayer, isLoading }) => {
 
   return (
     <div className="overflow-x-auto">
-      <div className={`flex ${isMobile ? 'flex-col' : 'items-center'} rounded-t-lg mb-4`}>
+      <div
+        className={`flex ${
+          isMobile ? "flex-col" : "items-center"
+        } rounded-t-lg mb-4`}
+      >
         <input
           type="text"
           placeholder="Search by player name"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
-          className={`px-4 py-3 border border-gray-300 rounded-md ${isMobile ? 'mb-2' : 'mr-4'} flex-grow outline-primary`}
+          className={`px-4 py-3 border border-gray-300 rounded-md ${
+            isMobile ? "mb-2" : "mr-4"
+          } flex-grow outline-primary`}
         />
         <select
           value={selectedCategory}
           onChange={(e) => setSelectedCategory(e.target.value)}
-          className={`px-4 py-3.5 border border-gray-300 rounded-md ${isMobile ? 'mb-2' : 'mr-4'} outline-primary`}
+          className={`px-4 py-3.5 border border-gray-300 rounded-md ${
+            isMobile ? "mb-2" : "mr-4"
+          } outline-primary`}
         >
           <option value="">All Categories</option>
           {categories.map((category, index) => (
@@ -156,36 +174,11 @@ const PlayerTable = ({ players, onAddNewPlayer, isLoading }) => {
           {isLoading ? (
             Array.from({ length: itemsPerPage }).map((_, index) => (
               <tr key={index} className="hover:bg-gray-100">
-                <td className="py-2 px-4 border-b">
-                  <Skeleton width={170} height={20} />
-                </td>
-                <td className="py-2 px-4 border-b">
-                  <Skeleton width={170} height={20} />
-                </td>
-                <td className="py-2 px-4 border-b">
-                  <Skeleton width={170} height={20} />
-                </td>
-                <td className="py-2 px-4 border-b">
-                  <Skeleton width={50} height={20} />
-                </td>
-                <td className="py-2 px-4 border-b">
-                  <Skeleton width={50} height={20} />
-                </td>
-                <td className="py-2 px-4 border-b">
-                  <Skeleton width={50} height={20} />
-                </td>
-                <td className="py-2 px-4 border-b">
-                  <Skeleton width={50} height={20} />
-                </td>
-                <td className="py-2 px-4 border-b">
-                  <Skeleton width={50} height={20} />
-                </td>
-                <td className="py-2 px-4 border-b">
-                  <Skeleton width={50} height={20} />
-                </td>
-                <td className="py-2 px-4 border-b">
-                  <Skeleton width={50} height={20} />
-                </td>
+                {Array.from({ length: 9 }).map((_, index) => (
+                  <td className="py-2 px-4 border-b">
+                    <Skeleton width={170} height={20} />
+                  </td>
+                ))}
               </tr>
             ))
           ) : currentPlayers.length > 0 ? (
@@ -194,30 +187,34 @@ const PlayerTable = ({ players, onAddNewPlayer, isLoading }) => {
                 <td
                   className="py-2 px-4 border-b truncate cursor-pointer"
                   title={player.Name}
-                  style={{ maxWidth: '170px' }}
+                  style={{ maxWidth: "170px" }}
                 >
                   {truncateText(player.Name, 30)}
                 </td>
                 <td
                   className="py-2 px-4 border-b truncate cursor-pointer"
                   title={player.University}
-                  style={{ maxWidth: '170px' }}
+                  style={{ maxWidth: "170px" }}
                 >
                   {truncateText(player.University, 30)}
                 </td>
                 <td
                   className="py-2 px-4 border-b truncate cursor-pointer"
                   title={player.Category}
-                  style={{ maxWidth: '170px' }}
+                  style={{ maxWidth: "170px" }}
                 >
                   {truncateText(player.Category, 30)}
                 </td>
-                <td className="py-2 px-4 border-b">{player['Total Runs']}</td>
-                <td className="py-2 px-4 border-b">{player['Balls Faced']}</td>
-                <td className="py-2 px-4 border-b">{player['Innings Played']}</td>
+                <td className="py-2 px-4 border-b">{player["Total Runs"]}</td>
+                <td className="py-2 px-4 border-b">{player["Balls Faced"]}</td>
+                <td className="py-2 px-4 border-b">
+                  {player["Innings Played"]}
+                </td>
                 <td className="py-2 px-4 border-b">{player.Wickets}</td>
-                <td className="py-2 px-4 border-b">{player['Overs Bowled']}</td>
-                <td className="py-2 px-4 border-b">{player['Runs Conceded']}</td>
+                <td className="py-2 px-4 border-b">{player["Overs Bowled"]}</td>
+                <td className="py-2 px-4 border-b">
+                  {player["Runs Conceded"]}
+                </td>
                 <td className="py-2 px-4 border-b cursor-pointer relative">
                   <FiMoreVertical onClick={() => handleMoreClick(player.id)} />
                   {openPopoverId === player.id && (
@@ -227,10 +224,10 @@ const PlayerTable = ({ players, onAddNewPlayer, isLoading }) => {
                           onClick={() => handleDelete(player.id)}
                           className="block w-full px-4 py-2 text-md hover:bg-gray-100 text-red-600 font-medium"
                         >
-                         <div className="flex items-center justify-center gap-1">
-                         <MdOutlineDelete/>
-                         Delete
-                         </div>
+                          <div className="flex items-center justify-center gap-1">
+                            <MdOutlineDelete />
+                            Delete
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -248,9 +245,7 @@ const PlayerTable = ({ players, onAddNewPlayer, isLoading }) => {
         </tbody>
       </table>
       {totalPages > 1 && (
-        <div className="flex justify-center mt-4">
-          {renderPagination()}
-        </div>
+        <div className="flex justify-center mt-4">{renderPagination()}</div>
       )}
     </div>
   );
