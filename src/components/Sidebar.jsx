@@ -32,7 +32,7 @@ export default function Sidebar() {
             exit={{ x: isMobile ? -300 : 0 }} 
             transition={{ duration: 0.3, ease: "easeInOut" }}
             className={`h-screen bg-white text-gray-900 p-4 flex flex-col shadow-lg fixed lg:relative z-40 ${
-              isMobile ? "w-64" : "w-64"
+              isMobile ? "w-64" : "w-80"
             }`}
           >
             <div className="flex flex-col items-center justify-center mb-8">
@@ -50,9 +50,10 @@ export default function Sidebar() {
                 <NavItem icon={<FaCreditCard />} text="Tournement" link="/tournement" />
               </ul>
             </nav>
-            <button className="flex items-center justify-center space-x-2 mt-4 py-2 px-4 bg-primary rounded-lg text-white hover:bg-primary">
-              <FaSignOutAlt className="text-2xl" />
-              <span>Logout</span>
+            <button className="relative inline-flex w-full items-center justify-center px-6 py-3 text-lg font-medium text-white rounded-md
+                bg-primary focus:outline-none focus:ring-4 focus:ring-secondary transition-all duration-500 ease-in-out">
+              <FaSignOutAlt />
+              <span className="ps-3">Logout</span>
             </button>
           </motion.div>
         )}
