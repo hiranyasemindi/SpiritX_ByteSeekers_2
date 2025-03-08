@@ -33,7 +33,7 @@ function App() {
           }
         />
         <Route
-          path="/“tournement"
+          path="/tournement"
           element={
             <ProtectedRoute>
               <Layout>
