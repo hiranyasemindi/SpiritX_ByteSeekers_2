@@ -55,11 +55,11 @@ export default function Sidebar() {
           >
             <div className="flex flex-col items-center justify-center mb-8">
               <img
-                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQz2agb3HNB6M4jcjneiNkCtWRW7zgLcbF54A&s"
+                src="/images/logo.png"
                 alt="App Logo"
-                className="w-20 h-20 rounded-2xl"
+                className="w-32 h-32 rounded-2xl"
               />
-              <h1 className="text-2xl font-bold mt-3 text-[#000000]">Spirit11 Admin</h1>
+              <h1 className="text-2xl font-bold text-[#000000]">Spirit11 Admin</h1>
             </div>
             <nav className="flex-1">
               <ul className="space-y-4">
