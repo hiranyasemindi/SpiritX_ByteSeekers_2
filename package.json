@@ -9,6 +9,7 @@
     "@testing-library/user-event": "^13.5.0",
     "firebase": "^11.4.0",
     "framer-motion": "^12.4.10",
+    "lottie-react": "^2.4.1",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-hot-toast": "^2.5.2",
