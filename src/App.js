@@ -7,6 +7,7 @@ import Transactions from "./pages/Tournements";
 import Players from "./pages/Players";
 import Dashboard from "./pages/Dashboard";
 import LandingPage from "./pages/LandingPage";
+import PlayerData from "./pages/PlayerData";
 import PlayerForm from "./components/PlayerForm";
 import TeamView from "./pages/TeamView";
 
@@ -72,6 +73,16 @@ function App() {
             <ProtectedRoute>
               <Layout>
                 <TeamView />
+              </Layout>
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="admin/players/:id"
+          element={
+            <ProtectedRoute>
+              <Layout>
+                <PlayerData />
               </Layout>
             </ProtectedRoute>
           }
