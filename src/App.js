@@ -7,6 +7,7 @@ import Transactions from "./pages/Tournements";
 import Players from "./pages/Players";
 import Dashboard from "./pages/Dashboard";
 import LandingPage from "./pages/LandingPage";
+import PlayerForm from "./components/PlayerForm";
 
 function App() {
   return (
@@ -30,6 +31,26 @@ function App() {
             <ProtectedRoute>
               <Layout>
                 <Players />
+              </Layout>
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="admin/players/add"
+          element={
+            <ProtectedRoute>
+              <Layout>
+                <PlayerForm />
+              </Layout>
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="admin/players/edit"
+          element={
+            <ProtectedRoute>
+              <Layout>
+                <PlayerForm />
               </Layout>
             </ProtectedRoute>
           }

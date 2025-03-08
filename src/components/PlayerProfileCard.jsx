@@ -16,7 +16,7 @@ function PlayerProfileCard() {
 
                 <div className="flex items-center justify-end ">
                     <img 
-                        src="/img/player-avatar.png" 
+                        src="/images/player-avatar.png" 
                         alt="Player Avatar" 
                         className="w-24 h-24 rounded-full object-cover " 
                     />

@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
+import { CiEdit } from "react-icons/ci";
 import { FiMoreVertical } from "react-icons/fi";
 import { MdOutlineDelete } from "react-icons/md";
 import Skeleton from "react-loading-skeleton";
@@ -11,6 +12,7 @@ const PlayerTable = ({ players, onAddNewPlayer, isLoading }) => {
   const [itemsPerPage, setItemsPerPage] = useState();
   const [isMobile, setIsMobile] = useState(false);
   const [openPopoverId, setOpenPopoverId] = useState(null);
+  const popoverRef = useRef(null);
 
   useEffect(() => {
     const handleResize = () => {
@@ -21,6 +23,19 @@ const PlayerTable = ({ players, onAddNewPlayer, isLoading }) => {
     handleResize();
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (popoverRef.current && !popoverRef.current.contains(event.target)) {
+        setOpenPopoverId(null);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
   }, []);
 
   const categories = [...new Set(players.map((player) => player.Category))];
@@ -59,6 +74,10 @@ const PlayerTable = ({ players, onAddNewPlayer, isLoading }) => {
   };
 
   const handleDelete = (playerId) => {
+    console.log("Deleted player ID:", playerId);
+    setOpenPopoverId(null);
+  };
+  const handleEdit = (playerId) => {
     console.log("Deleted player ID:", playerId);
     setOpenPopoverId(null);
   };
@@ -218,7 +237,7 @@ const PlayerTable = ({ players, onAddNewPlayer, isLoading }) => {
                 <td className="py-2 px-4 border-b cursor-pointer relative">
                   <FiMoreVertical onClick={() => handleMoreClick(player.id)} />
                   {openPopoverId === player.id && (
-                    <div className="absolute right-0 mt-2 w-48 rounded-md z-50 shadow-lg bg-white ring-1 ring-black ring-opacity-5">
+                    <div ref={popoverRef} className="absolute right-0 mt-2 w-48 rounded-md z-50 shadow-lg bg-white ring-1 ring-black ring-opacity-5">
                       <div className="py-1">
                         <div
                           onClick={() => handleDelete(player.id)}
@@ -227,6 +246,17 @@ const PlayerTable = ({ players, onAddNewPlayer, isLoading }) => {
                           <div className="flex items-center justify-center gap-1">
                             <MdOutlineDelete />
                             Delete
+                          </div>
+                        </div>
+                      </div>
+                      <div>
+                        <div
+                          onClick={() => handleEdit(player.id)}
+                          className="block w-full px-4 py-2 text-md hover:bg-gray-100 text-yellow-500 font-medium"
+                        >
+                          <div className="flex items-center justify-center gap-1">
+                            <CiEdit />
+                            Edit
                           </div>
                         </div>
                       </div>

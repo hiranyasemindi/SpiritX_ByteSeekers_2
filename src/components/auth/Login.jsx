@@ -79,8 +79,9 @@ const Login = () => {
     return (
         <div className="flex flex-col justify-center items-center h-screen bg-gray-70">
             <div className="w-96 bg-white p-8 rounded-lg border border-gray-300 mb-6">
-                <h2 className="text-2xl font-bold text-center text-dark mb-6">Spirit11 Admin Login</h2>
 
+                <img src="/images/logo.png" alt="Spirit11 Logo" className="w-24 mx-auto" />
+                <h2 className="text-2xl font-bold text-center text-dark mb-6">Spirit11 Admin Login</h2>
                 {firebaseError && <p className="text-red-500 text-sm mt-1 text-center mb-2">{firebaseError}</p>}
 
                 <form onSubmit={handleSubmit}>
@@ -103,7 +104,7 @@ const Login = () => {
                     {errors.password && <p className="text-red-500 text-sm mt-1">{errors.password}</p>}
 
                     <div className="mt-6">
-                        <Button type="submit" loading={loading} >Login</Button>
+                        <Button styles={'w-full'} type="submit" loading={loading} >Login</Button>
                     </div>
                 </form>
             </div>
