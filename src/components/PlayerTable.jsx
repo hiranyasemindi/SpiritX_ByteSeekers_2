@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { FiMoreVertical } from 'react-icons/fi';
 import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
 
@@ -8,6 +9,7 @@ const PlayerTable = ({ players, onAddNewPlayer, isLoading }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState();
   const [isMobile, setIsMobile] = useState(false);
+  const [openPopoverId, setOpenPopoverId] = useState(null); // Track which player's popover is open
 
   useEffect(() => {
     const handleResize = () => {
@@ -39,6 +41,21 @@ const PlayerTable = ({ players, onAddNewPlayer, isLoading }) => {
 
   const truncateText = (text, maxLength) => {
     return text.length > maxLength ? text.substring(0, maxLength) + '...' : text;
+  };
+
+  const handleMoreClick = (playerId) => {
+    // If the same player's popover is clicked again, close it
+    if (openPopoverId === playerId) {
+      setOpenPopoverId(null);
+    } else {
+      // Otherwise, open the popover for the clicked player
+      setOpenPopoverId(playerId);
+    }
+  };
+
+  const handleDelete = (playerId) => {
+    console.log('Deleted player ID:', playerId);
+    setOpenPopoverId(null); // Close the popover after deletion
   };
 
   const renderPagination = () => {
@@ -133,6 +150,7 @@ const PlayerTable = ({ players, onAddNewPlayer, isLoading }) => {
             <th className="py-2 px-4 border-b">Wickets</th>
             <th className="py-2 px-4 border-b">Overs Bowled</th>
             <th className="py-2 px-4 border-b">Runs Conceded</th>
+            <th className="py-2 px-4 border-b">Action</th>
           </tr>
         </thead>
         <tbody>
@@ -147,6 +165,9 @@ const PlayerTable = ({ players, onAddNewPlayer, isLoading }) => {
                 </td>
                 <td className="py-2 px-4 border-b">
                   <Skeleton width={170} height={20} />
+                </td>
+                <td className="py-2 px-4 border-b">
+                  <Skeleton width={50} height={20} />
                 </td>
                 <td className="py-2 px-4 border-b">
                   <Skeleton width={50} height={20} />
@@ -198,6 +219,21 @@ const PlayerTable = ({ players, onAddNewPlayer, isLoading }) => {
                 <td className="py-2 px-4 border-b">{player.Wickets}</td>
                 <td className="py-2 px-4 border-b">{player['Overs Bowled']}</td>
                 <td className="py-2 px-4 border-b">{player['Runs Conceded']}</td>
+                <td className="py-2 px-4 border-b cursor-pointer relative">
+                  <FiMoreVertical onClick={() => handleMoreClick(player.id)} />
+                  {openPopoverId === player.id && (
+                    <div className="absolute right-0 mt-2 w-48 rounded-md z-50 shadow-lg bg-white ring-1 ring-black ring-opacity-5">
+                      <div className="py-1">
+                        <button
+                          onClick={() => handleDelete(player.id)}
+                          className="block w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                        >
+                          Delete
+                        </button>
+                      </div>
+                    </div>
+                  )}
+                </td>
               </tr>
             ))
           ) : (

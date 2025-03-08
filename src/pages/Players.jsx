@@ -4,6 +4,7 @@ import PlayerTable from '../components/PlayerTable'
 export default function Players() {
   const [players, setPlayers] = useState([
     {
+      id:1,
       Name: 'Chamika Chandimal',
       University: 'University of the Visual & Performing Arts',
       Category: 'Batsman',
