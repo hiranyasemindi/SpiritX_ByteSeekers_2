@@ -16,9 +16,9 @@ const Login = () => {
     };
 
     return (
-        <div className="flex justify-center items-center h-screen bg-gray-100">
-            <div className="w-96 bg-white p-8 rounded-lg shadow-lg">
-                <h2 className="text-3xl font-semibold text-center text-primary mb-6">Login</h2>
+        <div className="flex flex-col justify-center items-center h-screen bg-gray-70">
+            <div className="w-96 bg-white p-8 rounded-lg border border-gray-300 mb-6">
+                <h2 className="text-2xl font-bold text-center text-dark mb-6">Spirit11 Admin Login</h2>
 
                 <form onSubmit={handleSubmit}>
                     <Input
@@ -31,16 +31,22 @@ const Login = () => {
                     <Input
                         label="Password"
                         type="password"
+                        styles={'mt-4'}
                         placeholder="Enter your password"
                         value={password}
                         onChange={handlePasswordChange}
                     />
 
                     <div className="mt-6">
-                        <Button type="submit">Login</Button>
+                        <Button type="submit" loading={true}>Login</Button>
                     </div>
                 </form>
             </div>
+
+
+            <footer className="text-center py-2 text-textColor w-full">
+                <p className='text-sm'>© 2025 Byte Seekers. All rights reserved.</p>
+            </footer>
         </div>
     );
 };
