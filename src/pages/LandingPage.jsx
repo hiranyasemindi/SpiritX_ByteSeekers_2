@@ -1,16 +1,16 @@
+// pages/LandingPage.js
 import React from 'react';
 import Header from '../components/Header';
-// import Logo from '../assets/logo.png'; // Import the logo image
+import Button from '../components/Button';
+import Carousel from '../components/Carousel';
 
 const LandingPage = () => {
-    const currentYear = new Date().getFullYear();
-
     return (
         <div className="min-h-screen bg-gray-100">
-            
+            {/* Header */}
             <Header />
 
-            {/* Body Section */}
+            {/* Landing Page */}
             <main className="relative h-screen flex items-center justify-center">
                 {/* Background Image with Overlay */}
                 <div className="absolute inset-0">
@@ -28,9 +28,12 @@ const LandingPage = () => {
                     <p className="text-xl mb-8">
                         Your ultimate destination for live scores, player stats, match schedules, and everything cricket!
                     </p>
+                    
                 </div>
-                
             </main>
+
+            {/* University Carousel Section */}
+            <Carousel />
         </div>
     );
 };
