@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import PlayerTable from '../components/PlayerTable'
+import { useNavigate } from 'react-router-dom';
 
 export default function Players() {
   const [players, setPlayers] = useState([
@@ -555,8 +556,9 @@ export default function Players() {
       'Runs Conceded': 360
     }
   ]);
+  const navigate = useNavigate()
 
   return (
-    <PlayerTable players={players} />
+    <PlayerTable players={players} onAddNewPlayer={()=> navigate('add')}/>
   )
 }

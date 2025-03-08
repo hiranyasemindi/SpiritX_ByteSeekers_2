@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Input = ({ label, type = "text", placeholder, value, onChange, styles }) => {
+const Input = ({ label, type = "text", placeholder, value, onChange, styles, name }) => {
     return (
         <div className={`relative w-full ${styles}`}>
             {label && (
@@ -11,6 +11,7 @@ const Input = ({ label, type = "text", placeholder, value, onChange, styles }) =
                 type={type}
                 placeholder={placeholder}
                 value={value}
+                name={name}
                 onChange={onChange}
                 className="
           block w-full px-4 py-3 text-md font-normal text-gray-700 placeholder-gray-400 border-[1px] border-gray-300 rounded-md

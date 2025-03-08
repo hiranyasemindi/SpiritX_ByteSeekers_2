@@ -87,7 +87,7 @@ export default function Sidebar() {
 }
 
 function NavItem({ icon, text, link }) {
-  const isActive = window.location.pathname === link;
+  const isActive = window.location.pathname.startsWith(link);
 
   return (
     <li
