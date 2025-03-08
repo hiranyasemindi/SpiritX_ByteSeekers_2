@@ -1,10 +1,38 @@
 import React from 'react'
 import TournementStats from '../components/TournementStats'
-import PlayerStats from '../components/PlayerStats'
-import PlayerProfileCard from '../components/PlayerProfileCard'
+import TeamTable from '../components/TeamTable'
 
-export default function Transactions() {
+export default function Tournements() {
+  const tournements = [
+    {
+      id:1,
+      Name: 'Chamika Chandimal',
+      Team: 'University of the Visual & Performing Arts',
+      points: 100000,
+    },
+    {
+      id:2,
+      Name: 'Chamika Chandimal',
+      Team: 'University of the Visual & Performing Arts',
+      points: 130,
+    },
+    {
+      id:3,
+      Name: 'Chamika Chandimal',
+      Team: 'University of the Visual & Performing Arts',
+      points: 100,
+    },
+    {
+      id:4,
+      Name: 'Chamika Chandimal',
+      Team: 'University of the Visual & Performing Arts',
+      points: 100,
+    },
+  ]
   return (
+   <>
     <TournementStats />
+    <TeamTable teamData={tournements}/>
+   </>
   )
 }
