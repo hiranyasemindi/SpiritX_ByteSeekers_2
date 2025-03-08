@@ -31,7 +31,7 @@ const PlayerTable = ({ players, onAddNewPlayer, isLoading }) => {
 
   return (
     <div className="overflow-x-auto">
-      <div className="flex items-center p-4 rounded-t-lg mb-4">
+      <div className="flex items-center rounded-t-lg mb-4">
         <input
           type="text"
           placeholder="Search by player name"
@@ -58,7 +58,7 @@ const PlayerTable = ({ players, onAddNewPlayer, isLoading }) => {
           Add New Player
         </button>
       </div>
-      <table className="min-w-full bg-white border border-gray-300">
+      <table className="min-w-full bg-white border border-gray-300 shadow-lg">
         <thead>
           <tr>
             <th className="py-2 px-4 border-b">Name</th>
