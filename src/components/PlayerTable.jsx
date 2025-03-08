@@ -214,6 +214,7 @@ const PlayerTable = ({ playerList, onAddNewPlayer, isLoading }) => {
       <table className="min-w-full bg-white border border-gray-300 shadow-lg">
         <thead>
           <tr>
+            <th className="py-2 px-4 border-b text-left">Player Name</th>
             <th className="py-2 px-4 border-b text-left">University</th>
             <th className="py-2 px-4 border-b text-left">Category</th>
             <th className="py-2 px-4 border-b text-left">Total Runs</th>
@@ -243,6 +244,7 @@ const PlayerTable = ({ playerList, onAddNewPlayer, isLoading }) => {
                 className="hover:bg-gray-100 cursor-pointer"
                 onClick={() => navigate(`${player.id}`, { state: { player } })}
               >
+                <td className="py-2 px-4 border-b text-center">{truncateText(player.playerName, 8)}</td>
                 <td className="py-2 px-4 border-b">{truncateText(player.university, 20)}</td>
                 <td className="py-2 px-4 border-b text-center">{player.category}</td>
                 <td className="py-2 px-4 border-b text-center">{player.totalRuns}</td>
