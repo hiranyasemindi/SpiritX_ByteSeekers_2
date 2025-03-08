@@ -13,7 +13,6 @@ function PlayerStats() {
                 bgColor="bg-blue-100" 
                 textColor="blue-600"
             />
-
             <Card 
                 title="Balls Faced" 
                 value="1500" 
@@ -22,8 +21,6 @@ function PlayerStats() {
                 bgColor="bg-green-100" 
                 textColor="green-600"
             />
-
-            {/* Card 3: Innings Played */}
             <Card 
                 title="Innings Played" 
                 value="56" 
@@ -32,8 +29,6 @@ function PlayerStats() {
                 bgColor="bg-purple-100" 
                 textColor="purple-600"
             />
-
-            {/* Card 4: Wickets */}
             <Card 
                 title="Wickets" 
                 value="120" 
@@ -42,8 +37,6 @@ function PlayerStats() {
                 bgColor="bg-yellow-100" 
                 textColor="yellow-600"
             />
-
-            {/* Card 5: Overs Bowled */}
             <Card 
                 title="Overs Bowled" 
                 value="350" 
@@ -52,8 +45,6 @@ function PlayerStats() {
                 bgColor="bg-orange-100" 
                 textColor="orange-600"
             />
-
-            {/* Card 6: Runs Conceded */}
             <Card 
                 title="Runs Conceded" 
                 value="1800" 
