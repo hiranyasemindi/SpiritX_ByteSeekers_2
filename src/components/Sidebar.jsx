@@ -65,7 +65,7 @@ export default function Sidebar() {
               <ul className="space-y-4">
                 <NavItem icon={<HiOutlineViewGrid />} text="Dashboard" link="/admin/dashboard" />
                 <NavItem icon={<LuUsersRound />} text="Players" link="/admin/players" />
-                <NavItem icon={<MdOutlineSportsCricket />} text="Tournement" link="/admin/tournement" />
+                <NavItem icon={<MdOutlineSportsCricket />} text="Tournement" link="/admin/tournements" />
               </ul>
             </nav>
             <button onClick={handleLogout} className="relative inline-flex w-full items-center justify-center px-6 py-3 font-medium bg-o rounded-md bg-secondary
