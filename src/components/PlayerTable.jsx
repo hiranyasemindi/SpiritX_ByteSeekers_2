@@ -6,13 +6,13 @@ const PlayerTable = ({ players, onAddNewPlayer, isLoading }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage, setItemsPerPage] = useState(13);
+  const [itemsPerPage, setItemsPerPage] = useState();
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
     const handleResize = () => {
       setIsMobile(window.innerWidth <= 768);
-      setItemsPerPage(window.innerWidth <= 768 ? 9 : 13);
+      setItemsPerPage(window.innerWidth <= 768 ? 9 : 15);
     };
 
     handleResize();
@@ -43,7 +43,7 @@ const PlayerTable = ({ players, onAddNewPlayer, isLoading }) => {
 
   const renderPagination = () => {
     const paginationButtons = [];
-    const maxPagesToShow = 5;
+    const maxPagesToShow = 8;
     let startPage, endPage;
 
     if (totalPages <= maxPagesToShow) {
