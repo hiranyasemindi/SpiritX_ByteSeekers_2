@@ -12,6 +12,7 @@ import PlayerForm from "./components/PlayerForm";
 import TeamView from "./pages/TeamView";
 import UserLogin from "./pages/UserLoginPage";
 import UserSignup from "./components/auth/UserSignup";
+import UserProtectedRoute from "./components/auth/UserProtectedRoute";
 
 function App() {
   return (
