@@ -1,6 +1,7 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./App.css";
 import Layout from "./components/Layout";
+import UserLayout from "./components/UserLayout";
 import ProtectedRoute from "./components/auth/ProtectedRoute";
 import LoginPage from "./pages/LoginPage";
 import Transactions from "./pages/Tournements";
@@ -13,15 +14,19 @@ import TeamView from "./pages/TeamView";
 import UserLogin from "./pages/UserLoginPage";
 import UserSignup from "./components/auth/UserSignup";
 import UserProtectedRoute from "./components/auth/UserProtectedRoute";
+import UserLeaderboard from "./pages/UserLeaderboard";
+import UserPlayers from "./pages/UserPlayers";
+import UserTeams from "./pages/UserTeams";
+import UserChatbot from "./pages/UserChatbot";
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
         <Route path="admin/" element={<LoginPage />} />
-        <Route path="/landing-page" element={<LandingPage />} />
-        <Route path="/user-login" element={<UserLogin />} />
-        <Route path="/user-signup" element={<UserSignup />} />
+        <Route path="/" element={<LandingPage />} />
+        <Route path="/user/login" element={<UserLogin />} />
+        <Route path="/user/signup" element={<UserSignup />} />
         <Route
           path="admin/dashboard"
           element={
@@ -89,6 +94,46 @@ function App() {
               <Layout>
                 <PlayerData />
               </Layout>
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/user/leaderboard"
+          element={
+            <ProtectedRoute>
+              <UserLayout>
+                <UserLeaderboard />
+              </UserLayout>
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/user/players"
+          element={
+            <ProtectedRoute>
+              <UserLayout>
+                <UserPlayers />
+              </UserLayout>
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/user/teams"
+          element={
+            <ProtectedRoute>
+              <UserLayout>
+                <UserTeams />
+              </UserLayout>
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/user/chatbot"
+          element={
+            <ProtectedRoute>
+              <UserLayout>
+                <UserChatbot />
+              </UserLayout>
             </ProtectedRoute>
           }
         />

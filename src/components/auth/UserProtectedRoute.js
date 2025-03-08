@@ -1,4 +1,3 @@
-// components/UserProtectedRoute.js
 import React from 'react';
 import { Navigate } from 'react-router-dom';
 
@@ -9,7 +8,7 @@ const UserProtectedRoute = ({ children }) => {
 
     // If there's no token or the token has expired, redirect to the login page
     if (!token || !tokenExpiration || Date.now() > tokenExpiration) {
-        return <Navigate to="/login" replace />;
+        return <Navigate to="/user/login" replace />;
     }
 
     // If authenticated, render the children (protected pages)
