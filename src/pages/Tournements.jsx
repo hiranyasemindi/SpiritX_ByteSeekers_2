@@ -31,6 +31,7 @@ export default function Tournements() {
   ]
   return (
    <>
+      <h1 className="text-2xl font-bold mb-6">Tournement Summary</h1>
     <TournementStats />
     <TeamTable teamData={tournements}/>
    </>

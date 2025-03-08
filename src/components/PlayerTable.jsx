@@ -26,7 +26,7 @@ const PlayerTable = ({ playerList, onAddNewPlayer, isLoading }) => {
   useEffect(() => {
     const handleResize = () => {
       setIsMobile(window.innerWidth <= 768);
-      setItemsPerPage(window.innerWidth <= 768 ? 5 : 10);
+      setItemsPerPage(window.innerWidth <= 768 ? 5 : 14);
     };
 
     handleResize();
@@ -179,6 +179,7 @@ const PlayerTable = ({ playerList, onAddNewPlayer, isLoading }) => {
 
   return (
     <div className="w-full h-full">
+      <h1 className="text-2xl font-bold mb-6">Players</h1>
       <div
         className={`flex ${isMobile ? "flex-col" : "items-center"
           } rounded-t-lg mb-4`}
@@ -230,9 +231,9 @@ const PlayerTable = ({ playerList, onAddNewPlayer, isLoading }) => {
           {isLoading ? (
             Array.from({ length: itemsPerPage }).map((_, index) => (
               <tr key={index} className="hover:bg-gray-100">
-                {Array.from({ length: 9 }).map((_, index) => (
+                {Array.from({ length: 10 }).map((_, index) => (
                   <td className="py-2 px-4 border-b" key={index}>
-                    <Skeleton width={100} height={20} />
+                    <Skeleton width={60} height={20} />
                   </td>
                 ))}
               </tr>
