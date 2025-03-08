@@ -3,7 +3,7 @@ import "./App.css";
 import Layout from "./components/Layout";
 import ProtectedRoute from "./components/auth/ProtectedRoute";
 import LoginPage from "./pages/LoginPage";
-import Transactions from "./pages/Transactions";
+import Transactions from "./pages/Tournements";
 import Players from "./pages/Players";
 import Dashboard from "./pages/Dashboard";
 
@@ -33,7 +33,7 @@ function App() {
           }
         />
         <Route
-          path="admin/tournement"
+          path="admin/tournements"
           element={
             <ProtectedRoute>
               <Layout>

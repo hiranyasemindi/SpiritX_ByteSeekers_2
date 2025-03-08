@@ -1,7 +1,8 @@
 import React from 'react'
+import TournementStats from '../components/TournementStats'
 
 export default function Transactions() {
   return (
-    <div>Transactions</div>
+    <TournementStats/>
   )
 }
