@@ -6,12 +6,14 @@ import LoginPage from "./pages/LoginPage";
 import Transactions from "./pages/Tournements";
 import Players from "./pages/Players";
 import Dashboard from "./pages/Dashboard";
+import LandingPage from "./pages/LandingPage";
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
         <Route path="admin/" element={<LoginPage />} />
+        <Route path="/landing-page" element={<LandingPage />} />
         <Route
           path="admin/dashboard"
           element={
