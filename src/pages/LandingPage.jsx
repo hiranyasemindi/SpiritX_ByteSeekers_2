@@ -1,6 +1,5 @@
 import React from 'react';
-import { FaArrowRight } from 'react-icons/fa';
-
+import Header from '../components/Header';
 // import Logo from '../assets/logo.png'; // Import the logo image
 
 const LandingPage = () => {
@@ -8,24 +7,8 @@ const LandingPage = () => {
 
     return (
         <div className="min-h-screen bg-gray-100">
-            {/* Header with Glassmorphism Effect */}
-            <header className="fixed top-0 left-0 right-0 z-50 bg-white bg-opacity-20 backdrop-blur-md shadow-sm">
-                <div className="mx-auto px-6 py-4 flex items-center justify-between">
-                    {/* Logo - Aligned to the Left */}
-                    <div className="flex items-center">
-                        <img src="/images/logo.png" alt="CricketHub Logo" className="h-16" />
-                    </div>
-
-                    {/* Get Started Button - Aligned to the Right */}
-                    <div className="flex items-center py-2">
-                        <button className="relative inline-flex w-full items-center justify-center px-6 py-3 font-medium rounded-md bg-primary
-                                       text-secondary focus:outline-none focus:ring-4 focus:ring-secondary transition-all duration-500 ease-in-out">
-                            <span className="pe-3">Get Started</span>
-                            <FaArrowRight />
-                        </button>
-                    </div>
-                </div>
-            </header>
+            
+            <Header />
 
             {/* Body Section */}
             <main className="relative h-screen flex items-center justify-center">
@@ -46,8 +29,6 @@ const LandingPage = () => {
                         Your ultimate destination for live scores, player stats, match schedules, and everything cricket!
                     </p>
                 </div>
-
-                {/* Footer Section - Placed Above the Image */}
                 
             </main>
         </div>
