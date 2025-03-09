@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom'; // Import Link
 import Input from '../Input';
 import Button from '../Button';
 import { getDatabase, ref, get } from 'firebase/database';
@@ -101,6 +101,16 @@ const UserLogin = () => {
 
                     <div className="mt-6">
                         <Button styles={'w-full'} type="submit" loading={loading}>Login</Button>
+                    </div>
+
+                    {/* Add the "Not registered yet? Register" link */}
+                    <div className="mt-4 text-center">
+                        <p className="text-sm text-gray-600">
+                            Not registered yet?{' '}
+                            <Link to="/user/signup" className="text-primary hover:underline">
+                                Register
+                            </Link>
+                        </p>
                     </div>
                 </form>
             </div>
