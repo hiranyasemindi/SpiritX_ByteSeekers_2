@@ -1,66 +1,132 @@
-import React, { useRef } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Autoplay } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import CarouselCard from './CarouselCard';
-
-const universities = [
-    { id: 1, logo: "/images/logo.png", name: "University of Colombo", description: "Home of the Colombo Lions." },
-    ...Array(10).fill().map((_, i) => ({
-        id: i + 1,
-        logo: "/images/logo.png",
-        name: `University ${i + 1}`,
-        description: "A university with a strong cricket team.",
-    })),
-];
+import { db, ref, onValue } from '../services/firebase'; // Adjust the import according to your file structure
 
 const Carousel = () => {
+    const [universities, setUniversities] = useState([]);
     const prevRef = useRef(null);
     const nextRef = useRef(null);
+
+    useEffect(() => {
+        const universitiesRef = ref(db, 'universities'); // Path where universities are stored
+        const playersRef = ref(db, 'players'); // Path where players are stored
+
+        console.log('Fetching universities data...');
+        const unsubscribe = onValue(universitiesRef, (uniSnapshot) => {
+            if (uniSnapshot.exists()) {
+                const uniData = uniSnapshot.val();
+                console.log('Universities data fetched:', uniData);
+
+                const uniList = [];
+
+                // Fetch number of players for each university
+                console.log('Fetching players data...');
+                onValue(playersRef, (playersSnapshot) => {
+                    if (playersSnapshot.exists()) {
+                        const playersData = playersSnapshot.val();
+                        console.log('Players data fetched:', playersData);
+
+                        // Initialize a count for players per university
+                        const playerCountMap = {};
+
+                        // Count players for each university
+                        for (let playerId in playersData) {
+                            const player = playersData[playerId];
+                            const universityName = player.university; // Get the university name
+
+                            if (universityName) {
+                                if (!playerCountMap[universityName]) {
+                                    playerCountMap[universityName] = 0;
+                                }
+                                playerCountMap[universityName]++;
+                            }
+                        }
+
+                        // Populate university list with player count
+                        for (let uniId in uniData) {
+                            const uni = uniData[uniId];
+                            const playersForUniCount = playerCountMap[uni.name] || 0; // Get player count or 0 if not found
+
+                            uniList.push({
+                                id: uniId,
+                                name: uni.name,
+                                logo: uni.logo,
+                                playersCount: playersForUniCount
+                            });
+                        }
+
+                        console.log('University list with player counts:', uniList);
+                        setUniversities(uniList);
+                    } else {
+                        console.log('No players data available');
+                    }
+                });
+            } else {
+                console.log('No universities data available');
+            }
+        });
+
+        return () => unsubscribe();
+    }, []);
+
+    console.log('Universities state:', universities);
 
     return (
         <section className="h-screen flex items-center justify-center bg-gray-50">
             <div className="container mx-auto px-6 relative">
-                <h2 className="text-3xl font-bold text-center mb-20 text-primary">Inter-University Cricket Teams</h2>
-                <Swiper
-                    modules={[Navigation, Autoplay]}
-                    spaceBetween={30}
-                    slidesPerView={1}
-                    loop={true}
-                    autoplay={{ delay: 3000 }}
-                    navigation={{
-                        prevEl: prevRef.current,
-                        nextEl: nextRef.current,
-                    }}
-                    onInit={(swiper) => {
-                        swiper.params.navigation.prevEl = prevRef.current;
-                        swiper.params.navigation.nextEl = nextRef.current;
-                        swiper.navigation.init();
-                        swiper.navigation.update();
-                    }}
-                    autoHeight={true} 
-                    breakpoints={{
-                        640: {
-                            slidesPerView: 2,
-                        },
-                        1024: {
-                            slidesPerView: 3,
-                        },
-                    }}
-                >
-                    {universities.map((uni) => (
-                        <SwiperSlide key={uni.id} className="min-h-[300px]">
-                            <CarouselCard logo={uni.logo} name={uni.name} description={uni.description} />
-                        </SwiperSlide>
-                    ))}
-                </Swiper>
-
-                
+                <h2 className="text-3xl font-bold text-center mb-20 text-primary">
+                    Inter-University Cricket Teams
+                </h2>
+    
+                {universities.length === 0 ? (
+                    <div>Loading...</div> // Or a spinner, or a message
+                ) : (
+                    <Swiper
+                        modules={[Navigation, Autoplay]}
+                        spaceBetween={30}
+                        slidesPerView={1}
+                        loop={true}
+                        autoplay={{ delay: 3000 }}
+                        navigation={{
+                            prevEl: prevRef.current,
+                            nextEl: nextRef.current,
+                        }}
+                        onInit={(swiper) => {
+                            swiper.params.navigation.prevEl = prevRef.current;
+                            swiper.params.navigation.nextEl = nextRef.current;
+                            swiper.navigation.init();
+                            swiper.navigation.update();
+                        }}
+                        autoHeight={true}
+                        breakpoints={{
+                            640: {
+                                slidesPerView: 2,
+                            },
+                            1024: {
+                                slidesPerView: 3,
+                            },
+                        }}
+                    >
+                        {universities.map((uni) => (
+                            <SwiperSlide key={uni.id} className="min-h-[300px]">
+                                <CarouselCard
+                                    logo={uni.logo}
+                                    name={uni.name}
+                                    description={`${uni.playersCount} Players`}
+                                />
+                            </SwiperSlide>
+                        ))}
+                    </Swiper>
+                )}
             </div>
         </section>
     );
+    
 };
 
 export default Carousel;
