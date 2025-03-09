@@ -138,12 +138,12 @@ function App() {
           }
         />
         <Route
-          path="user/players/:id"
+          path="/user/players/:id"
           element={
             <UserProtectedRoute>
-              <Layout>
+              <UserLayout>
                 <PlayerData />
-              </Layout>
+              </UserLayout>
             </UserProtectedRoute>
           }
         />
