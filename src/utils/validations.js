@@ -74,13 +74,13 @@ export const validatePlayer = (data) => {
 
     if (data.ballsFaced && data.ballsFaced < 0) {
         errors.ballsFaced = "Balls Faced must be a positive number";
-    } else if (!data.ballsFaced) {
+    } else if (data.ballsFaced == null && data.ballsFaced == "") {
         errors.ballsFaced = "Balls Faced is required";
     }
 
     if (data.inningsPlayed && data.inningsPlayed < 0) {
         errors.inningsPlayed = "Innings Played must be a positive number";
-    } else if (!data.inningsPlayed) {
+    } else if (data.inningsPlayed == null && data.inningsPlayed == "") {
         errors.inningsPlayed = "Innings Played is required";
     }
 
@@ -94,7 +94,7 @@ export const validatePlayer = (data) => {
 
     if (data.oversBowled && data.oversBowled < 0) {
         errors.oversBowled = "Overs Bowled must be a positive number";
-    } else if (!data.oversBowled) {
+    } else if (data.oversBowled == null && data.oversBowled == "") {
         errors.oversBowled = "Overs Bowled is required";
     }
 
