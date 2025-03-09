@@ -25,7 +25,7 @@ export const fetchPlayerDatabase = (setPlayerDatabase, setMessages) => {
             setMessages([
                 {
                     sender: 'AI',
-                    message: "Ask me anything about team creation!",
+                    message: "Hey, I'm Spiriter👋. Let’s build your dream cricket team together!",
                     time: new Date().toLocaleTimeString(),
                 },
             ]);
