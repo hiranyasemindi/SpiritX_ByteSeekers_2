@@ -111,7 +111,6 @@ const Carousel = () => {
                         {universities.map((uni) => (
                             <SwiperSlide key={uni.id} className="min-h-[300px]">
                                 <CarouselCard
-                                    logo={uni.logo}
                                     name={uni.name}
                                     description={`${uni.playersCount} Players`}
                                 />
