@@ -19,6 +19,7 @@ const PlayerForm = () => {
     }
 
     const calculateBudget = (player) => {
+        console.log(player)
         const battingStrike = calculateBattingStrikeRate(player.totalRuns, player.ballsFaced);
         const battingAverage = calculateBattingAverage(player.totalRuns, player.inningsPlayed);
         const bowlingStrikeRate = calculateBowlingStrikeRate(player.oversBowled, player.wickets);

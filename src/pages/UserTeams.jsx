@@ -22,10 +22,10 @@ function UserTeam() {
     }, []);
     return (
         <div className="w-full h-full">
-            {teams.length == 0 ? (<>
+            {teams == null ? (<>
                 <AddTeam />
             </>) : (<>
-                <Team />
+                <Team team={teams}/>
             </>)}
         </div>
     )
