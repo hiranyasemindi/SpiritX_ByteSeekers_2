@@ -1,11 +1,26 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { fetchPlayerDatabase, getGPTResponse } from '../utils/chatbotUtils';
 
 const UserChatbot = () => {
     const [messages, setMessages] = useState([]);
     const [inputText, setInputText] = useState('');
     const chatContainerRef = useRef(null);
+    const [playerDatabase, setPlayerDatabase] = useState(null); // Store player data
 
-    const handleSendMessage = () => {
+    // Fetch player database when the chatbot loads
+    useEffect(() => {
+        fetchPlayerDatabase(setPlayerDatabase, setMessages);
+    }, []);
+
+    // Auto-scroll to latest message
+    useEffect(() => {
+        if (chatContainerRef.current) {
+            chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
+        }
+    }, [messages]);
+
+    // Handle user input and get GPT response
+    const handleSendMessage = async () => {
         if (inputText.trim() === '') return;
 
         const userMessage = {
@@ -15,27 +30,23 @@ const UserChatbot = () => {
         };
         setMessages([...messages, userMessage]);
 
-        setTimeout(() => {
-            const aiMessage = {
-                sender: 'AI',
-                message: `You said: "${inputText}"`,
-                time: new Date().toLocaleTimeString(),
-            };
-            setMessages((prevMessages) => [...prevMessages, aiMessage]);
-        }, 1000);
+        // Get AI response
+        const aiResponse = await getGPTResponse(inputText, playerDatabase);
 
+        const aiMessage = {
+            sender: 'AI',
+            message: aiResponse,
+            time: new Date().toLocaleTimeString(),
+        };
+
+        setMessages((prevMessages) => [...prevMessages, aiMessage]);
         setInputText('');
     };
-    useEffect(() => {
-        if (chatContainerRef.current) {
-            chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
-        }
-    }, [messages]);
 
     return (
         <div className="flex flex-col h-full bg-gray-100">
             <div className="bg-white text-black p-4 text-center shadow-lg">
-                <h1 className="text-2xl font-extrabold">Chatbot</h1>
+                <h1 className="text-2xl font-extrabold">Cricket Team Chatbot</h1>
             </div>
             <div 
                 ref={chatContainerRef} 
@@ -67,7 +78,7 @@ const UserChatbot = () => {
                         value={inputText}
                         onChange={(e) => setInputText(e.target.value)}
                         onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
-                        placeholder="Type a message..."
+                        placeholder="Ask about cricket team selection..."
                         className="flex-1 p-2 border border-gray-300 rounded-lg focus:outline-none focus:border-primary/50 bg-white/50 backdrop-blur-sm"
                     />
                     <button
