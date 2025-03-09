@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { db, ref, onValue } from '../services/firebase';
-import { useNavigate } from "react-router-dom";
 
 function PlayersJson() {
     const [playersJson, setPlayersJson] = useState("");
@@ -28,8 +27,6 @@ function PlayersJson() {
 
         return () => unsubscribe();
     }, []);
-
-    const navigate = useNavigate();
 
     return (
         <div>

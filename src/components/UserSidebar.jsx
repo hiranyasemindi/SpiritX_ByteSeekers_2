@@ -1,11 +1,9 @@
 import { FaSignOutAlt, FaBars, FaTimes } from "react-icons/fa";
 import { HiOutlineViewGrid } from "react-icons/hi";
-import { MdSportsCricket, MdPeopleAlt, MdGroups, MdChat, MdAttachMoney   } from "react-icons/md"; // Updated icons
+import { MdSportsCricket, MdGroups, MdAttachMoney   } from "react-icons/md"; // Updated icons
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { signOut, auth } from '../services/firebase'
 import { useNavigate } from "react-router-dom";
-import toast from "react-hot-toast";
 
 export default function Sidebar() {
     const navigate = useNavigate();

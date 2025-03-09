@@ -17,7 +17,6 @@ import UserProtectedRoute from "./components/auth/UserProtectedRoute";
 import UserLeaderboard from "./pages/UserLeaderboard";
 import UserPlayers from "./pages/UserPlayers";
 import UserTeams from "./pages/UserTeams";
-import UserChatbot from "./pages/UserChatbot";
 import UserBudget from "./pages/UserBudget";
 
 function App() {

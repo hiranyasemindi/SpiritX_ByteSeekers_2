@@ -61,10 +61,6 @@ const SelectedTeamTable = ({ team, handleClear, isLoading }) => {
         setCurrentPage(pageNumber);
     };
 
-    const handleRemovePlayer = (id) => {
-        console.log("Remove player with ID: ", id);
-    };
-
     const startIndex = (currentPage - 1) * itemsPerPage;
     const currentPlayers = team.slice(startIndex, startIndex + itemsPerPage);
 

@@ -1,6 +1,6 @@
 import { MdPerson } from "react-icons/md";
 
-function PlayerCard({ player, onPurchase }) {
+function PlayerCard({ player }) {
     return (
         <div className="bg-white p-4 rounded-xl shadow-lg border-l-4 border-primary hover:scale-105 transition transform duration-300">
             <div className="flex items-center gap-3">

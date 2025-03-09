@@ -1,6 +1,6 @@
 import React from "react";
 import Card from "./Card";
-import { FaRunning, FaTrophy } from "react-icons/fa";
+import { FaRunning } from "react-icons/fa";
 import { FaUsersLine } from "react-icons/fa6";
 import { GiCricketBat } from "react-icons/gi";
 import { MdCategory } from "react-icons/md";

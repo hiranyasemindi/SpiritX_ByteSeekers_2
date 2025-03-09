@@ -2,14 +2,12 @@ import React, { useEffect, useRef, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Skeleton from 'react-loading-skeleton';
 import { FaMedal } from 'react-icons/fa';
-import { useNavigate } from 'react-router-dom';
 
 export default function UserTeamTable({ teamData = [], isLoading }) {
     const [currentPage, setCurrentPage] = useState(1);
     const [itemsPerPage, setItemsPerPage] = useState(13);
     const totalPages = Math.ceil((teamData?.length || 0) / itemsPerPage);
     const prevRankRef = useRef();
-    const navigate = useNavigate();
     const username = localStorage.getItem('username'); 
 
     useEffect(() => {
