@@ -1,25 +1,42 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
-
-const data = [
-  { name: 'Team A', points: 1 },
-  { name: 'Team B', points: 2 },
-  { name: 'Team C', points: 3 },
-  { name: 'Team D', points: 4 },
-  { name: 'Team E', points: 5 },
-  { name: 'Team A', points: 1 },
-  { name: 'Team B', points: 2 },
-  { name: 'Team C', points: 3 },
-  { name: 'Team D', points: 4 },
-  { name: 'Team E', points: 5 },
-
-];
+import { getDatabase, ref, onValue } from 'firebase/database';
+import Skeleton from 'react-loading-skeleton';
+import 'react-loading-skeleton/dist/skeleton.css';
 
 export default function TeamRanksChart() {
+  const [chartData, setChartData] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const db = getDatabase();
+    const teamsRef = ref(db, 'teams');
+
+    onValue(teamsRef, (snapshot) => {
+      const teamsData = snapshot.val();
+      if (teamsData) {
+        const formattedData = Object.keys(teamsData).map((teamId) => ({
+          name: teamsData[teamId].teamName,
+          points: teamsData[teamId].points || 0, 
+        }));
+        setChartData(formattedData);
+      }
+      setIsLoading(false);
+    });
+  }, []);
+
+  if (isLoading) {
+    return (
+      <div style={{ width: '100%', height: '500px' }}>
+        <Skeleton height={500} />
+      </div>
+    );
+  }
+
   return (
     <ResponsiveContainer width="100%" height={500}>
       <BarChart
-        data={data}
+        data={chartData}
         margin={{
           top: 5,
           right: 30,
