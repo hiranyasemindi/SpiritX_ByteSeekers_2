@@ -26,28 +26,22 @@ const UserChatbot = () => {
 
         setInputText('');
     };
-
     useEffect(() => {
         if (chatContainerRef.current) {
-            const chatContainer = chatContainerRef.current;
-            const messages = chatContainer.children;
-            for (let message of messages) {
-                if (message.getBoundingClientRect().top < 50) {
-                    message.style.opacity = 0;
-                } else {
-                    message.style.opacity = 1;
-                }
-            }
+            chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
         }
     }, [messages]);
 
     return (
-        <div className="flex flex-col h-screen bg-gray-100">
+        <div className="flex flex-col h-full bg-gray-100">
             <div className="bg-white text-black p-4 text-center shadow-lg">
                 <h1 className="text-2xl font-extrabold">Chatbot</h1>
             </div>
-
-            <div ref={chatContainerRef} className="flex-1 p-4 overflow-y-auto flex flex-col justify-end">
+            <div 
+                ref={chatContainerRef} 
+                className="flex-1 p-4 overflow-y-auto flex flex-col"
+                style={{ maxHeight: 'calc(100vh - 200px)' }}
+            >
                 {messages.map((msg, index) => (
                     <div
                         key={index}
@@ -66,9 +60,7 @@ const UserChatbot = () => {
                     </div>
                 ))}
             </div>
-
-            {/* Glassmorphism Effect for Typing Area */}
-            <div className="p-4 backdrop-blur-lg rounded-lg bg-white/30 border-t border-gray-200/50 shadow-lg">
+            <div className="sticky bottom-0 p-4 backdrop-blur-lg rounded-lg bg-white/30 border-t border-gray-200/50 shadow-lg">
                 <div className="flex items-center">
                     <input
                         type="text"
