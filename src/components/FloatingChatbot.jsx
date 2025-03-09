@@ -13,13 +13,15 @@ const FloatingChatButton = () => {
   return (
     <div className="fixed flex bottom-4 right-4 z-50">
       <div className="flex flex-col md:flex-row justify-center items-center cursor-pointer"
-        onClick={toggleChat}
       >
-        <div className="w-32 h-32 flex justify-items-start">
+        <div className="w-32 h-32 flex justify-items-start" 
+        onClick={toggleChat}
+        >
           <Lottie animationData={lottie1} loop={true} width={100} />
         </div>
         <button
           className="bg-primary text-white p-3 rounded-full shadow-lg transition-all duration-300 flex items-center translate-x-0 md:-translate-x-4 md:translate-y-0 -translate-y-6 hover:scale-105 hover:bg-primary-dark"
+        onClick={toggleChat}
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"

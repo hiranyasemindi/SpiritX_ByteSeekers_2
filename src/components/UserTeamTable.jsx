@@ -10,7 +10,7 @@ export default function UserTeamTable({ teamData = [], isLoading }) {
     const totalPages = Math.ceil((teamData?.length || 0) / itemsPerPage);
     const prevRankRef = useRef();
     const navigate = useNavigate();
-    const username = localStorage.getItem('username'); // Retrieve username from localStorage
+    const username = localStorage.getItem('username'); 
 
     useEffect(() => {
       const handleResize = () => {
@@ -173,11 +173,8 @@ export default function UserTeamTable({ teamData = [], isLoading }) {
                       exit={{ opacity: 0, y: -10 }}
                       transition={{ type: 'spring', stiffness: 300, damping: 30 }}
                       className={`hover:bg-gray-100 ${
-                        team.ownerName === username ? 'bg-yellow-100' : ''
+                        team.ownerName === username ? 'bg-orange-100' : ''
                       }`}
-                      onClick={() => {
-                        navigate(`team/${team.ownerName}`);
-                      }}
                     >
                       <td
                         className="py-2 px-4 border-b truncate cursor-pointer text-center"
