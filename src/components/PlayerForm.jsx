@@ -34,13 +34,13 @@ const PlayerForm = () => {
         playerName: player?.playerName || "",
         university: player?.university || "",
         category: player?.category || "",
-        totalRuns: player?.totalRuns || 0,
-        ballsFaced: player?.ballsFaced || 0,
-        inningsPlayed: player?.inningsPlayed || 0,
-        wickets: player?.wickets || 0,
-        oversBowled: player?.oversBowled || 0,
-        runsConceded: player?.runsConceded || 0,
-        playerValue: player?.playerValue || 0,
+        totalRuns: parseInt(player?.totalRuns) || 0,
+        ballsFaced: parseInt(player?.ballsFaced) || 0,
+        inningsPlayed: parseInt(player?.inningsPlayed) || 0,
+        wickets: parseInt(player?.wickets) || 0,
+        oversBowled: parseInt(player?.oversBowled) || 0,
+        runsConceded: parseInt(player?.runsConceded) || 0,
+        playerValue:parseInt(player?.playerValue) || 0,
     });
 
     const [errors, setErrors] = useState({});

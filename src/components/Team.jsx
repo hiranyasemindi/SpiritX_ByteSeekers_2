@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { db, ref, get, set, onValue, update, off, remove } from "../services/firebase";
+import { db, ref, get, set, onValue, off, remove } from "../services/firebase";
 import toast from "react-hot-toast";
 import TeamDetails from "./TeamDetails";
 import SelectedTeamTable from "./SelectedTeamTable";
@@ -10,9 +10,9 @@ function Team({ team }) {
     const [teamPlayers, setTeamPlayers] = useState([]);
     const [loading, setLoading] = useState(true);
     const [selectedCategory, setSelectedCategory] = useState("");
-    const [budget, setBudget] = useState(9000000);
     const [currentPage, setCurrentPage] = useState(1);
     const [itemsPerPage] = useState(5);
+    const [isCompleted, setIsCompleted] = useState(false);
 
     useEffect(() => {
         const username = localStorage.getItem("username");
@@ -29,15 +29,14 @@ function Team({ team }) {
 
         const updateAvailablePlayers = (all, team) => {
             const teamIds = new Set(Object.keys(team));
-            
+
             const allPlayersArray = Object.entries(all).map(([key, player]) => ({ key, ...player }));
-            
+
             const filteredPlayers = allPlayersArray.filter(player => !teamIds.has(player.key));
-            
+
             setAvailablePlayers(filteredPlayers);
             setLoading(false);
         };
-        
 
         const unsubscribeAllPlayers = onValue(allPlayersRef, (snapshot) => {
             allPlayersData = snapshot.val() || {};
@@ -57,17 +56,24 @@ function Team({ team }) {
         };
     }, []);
 
+    const calculateTotalValue = (players) => {
+        return players.reduce((total, player) => total + player.playerValue, 0);
+    };
+
     const handleClear = (playerKey) => {
-        console.log(playerKey)
         const username = localStorage.getItem("username");
         if (!username) {
             toast.error("No username found in localStorage");
             return;
         }
-    
+
         const playerRef = ref(db, `teams/${username}/players/${playerKey}`);
         remove(playerRef)
             .then(() => {
+                const player = teamPlayers.find((p) => p.key === playerKey);
+                if (player) {
+                    // setBudget(prevBudget => prevBudget + player.playerValue);
+                }
                 toast.success("Player removed successfully!");
             })
             .catch((error) => {
@@ -75,7 +81,6 @@ function Team({ team }) {
                 toast.error("Failed to remove player.");
             });
     };
-    
 
     const handleAddPlayer = (playerKey) => {
         const username = localStorage.getItem("username");
@@ -83,26 +88,40 @@ function Team({ team }) {
             toast.error("No username found in localStorage");
             return;
         }
-    
+
         const player = availablePlayers.find((p) => p.key === playerKey);
         if (!player) {
             toast.error("Player not found!");
             return;
         }
-    
+
+        const totalSelectedValue = calculateTotalValue(teamPlayers);
+        const remainingBudget = 9000000 - totalSelectedValue;
+
+        if (remainingBudget - player.playerValue < 0) {
+            toast.error("Not enough budget to add this player.");
+            return;
+        }
+
+        if (teamPlayers.length >= 11) {
+            toast.error("You cannot add more than 11 players.");
+            return;
+        }
+
         const teamPlayerRef = ref(db, `teams/${username}/players/${playerKey}`);
-        set(teamPlayerRef, player) // Store player with key
+        set(teamPlayerRef, player)
             .then(() => {
+                // setBudget(prevBudget => prevBudget - player.playerValue);
                 toast.success("Player added successfully!");
+                if (teamPlayers.length + 1 === 11) {
+                    setIsCompleted(true)
+                }
             })
             .catch((error) => {
                 console.error("Error adding player:", error);
                 toast.error("Failed to add player.");
             });
     };
-    
-
-
 
     const handleCategoryChange = (category) => {
         setSelectedCategory(category);
@@ -122,10 +141,14 @@ function Team({ team }) {
     const currentPlayers = filteredPlayers.slice(indexOfFirstPlayer, indexOfLastPlayer);
     const totalPages = Math.ceil(filteredPlayers.length / itemsPerPage);
 
+    const totalSelectedValue = calculateTotalValue(teamPlayers);
+
+    const remainingBudget = 9000000 - totalSelectedValue;
+
     return (
         <div className="">
             <h2 className="text-2xl font-semibold mb-4">My Team</h2>
-            <TeamDetails budget={team.budget} teamLength={teamPlayers?.length} teamName={team.teamName} />
+            <TeamDetails budget={remainingBudget} teamLength={teamPlayers?.length} teamName={team.teamName} isCompleted={isCompleted} />
             <SelectedTeamTable team={teamPlayers} handleClear={(id) => handleClear(id)} />
 
             <h3 className="text-xl font-semibold mb-2">Select Players</h3>

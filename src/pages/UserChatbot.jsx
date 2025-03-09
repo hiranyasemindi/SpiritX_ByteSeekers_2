@@ -58,9 +58,9 @@ const UserChatbot = ({ toggleChat }) => {
     };
 
     return (
-        <div className="flex flex-col h-full bg-gray-100">
-            <div className="bg-white text-black p-4 text-center shadow-lg relative">
-                <h1 className="text-2xl font-extrabold">Cricket Team Chatbot</h1>
+        <div className="flex flex-col h-full bg-white">
+            <div className="bg-white text-black p-4 text-center border-b-[1px] border-gray-100 relative">
+                <h1 className="text-2xl font-extrabold">Spiriter</h1>
                 <button
                     onClick={toggleChat}
                     className="absolute top-3 right-4 p-1 hover:bg-gray-200 rounded-full transition-colors duration-200"
@@ -81,6 +81,7 @@ const UserChatbot = ({ toggleChat }) => {
                     </svg>
                 </button>
             </div>
+
             <div
                 ref={chatContainerRef}
                 className="flex-1 p-4 overflow-y-auto flex flex-col"
@@ -94,7 +95,7 @@ const UserChatbot = ({ toggleChat }) => {
                         <div
                             className={`relative max-w-[90%] p-3 text-gray-800 
                                 ${msg.sender === 'user'
-                                    ? 'bg-white rounded-[15px] rounded-br-none'
+                                    ? 'bg-gray-100              rounded-[15px] rounded-br-none'
                                     : 'bg-secondary rounded-[15px] rounded-bl-none'}
                             `}
                         >

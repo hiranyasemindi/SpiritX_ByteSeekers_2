@@ -1,4 +1,4 @@
-function TeamDetails({ budget, teamName, teamLength }) {
+function TeamDetails({ budget, teamName, teamLength, isCompleted }) {
     return (
         <div className="max-w-7xl mx-auto pb-3">
             <div className="bg-white p-6 rounded-lg shadow-md flex flex-col md:flex-row items-center md:items-start justify-between">
