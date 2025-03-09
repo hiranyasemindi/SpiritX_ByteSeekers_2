@@ -15,8 +15,11 @@ const FloatingChatButton = () => {
       <div className="flex flex-col md:flex-row justify-center items-center cursor-pointer"
           onClick={toggleChat}
       >
+        <div className="w-32 h-32 flex justify-items-start">
+          <Lottie animationData={lottie1} loop={true} width={100} />
+        </div>
         <button
-          className="bg-primary text-white p-3 rounded-full shadow-lg transition-all duration-300 flex items-center translate-x-8 hover:scale-105 hover:bg-primary-dark"
+          className="bg-primary text-white p-3 rounded-full shadow-lg transition-all duration-300 flex items-center translate-x-0 md:-translate-x-4 md:translate-y-0 -translate-y-6 hover:scale-105 hover:bg-primary-dark"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -36,18 +39,15 @@ const FloatingChatButton = () => {
             <span>Chat with </span> <span className="font-bold"> Spiriter</span>
           </span>
         </button>
-        <div className="w-32 h-32 flex justify-items-start">
-          <Lottie animationData={lottie1} loop={true} width={100} />
-        </div>
       </div>
       <div
-        className={`fixed bottom-20 right-4 w-full md:w-1/3 h-[500px] bg-white rounded-lg shadow-lg overflow-hidden transition-all duration-300 ${
+        className={`fixed bottom-20 right-1 md:right-4 w-[90%] md:w-1/3 h-[500px] bg-white rounded-lg shadow-lg overflow-hidden transition-all duration-300 ${
           isChatOpen
             ? "opacity-100 translate-y-0"
             : "opacity-0 translate-y-4 pointer-events-none"
         }`}
       >
-        <UserChatbot />
+        <UserChatbot toggleChat={toggleChat}/>
       </div>
     </div>
   );
