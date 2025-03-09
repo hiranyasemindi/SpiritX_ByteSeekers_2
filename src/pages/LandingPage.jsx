@@ -58,14 +58,12 @@ const LandingPage = () => {
                 </div>
             </section>
 
-            {/* Carousel Section */}
             <section
-    className="snap-start h-screen flex items-center justify-center bg-gray-50 bg-cover bg-bottom"
-    style={{ backgroundImage: "url('./images/carouselbg.png')" }}
->
-    <Carousel />
-</section>
-            {/* Lottie and Paragraph Section */}
+                className="snap-start h-screen flex items-center justify-center bg-gray-50 bg-cover bg-bottom"
+                style={{ backgroundImage: "url('./images/carouselbg.png')" }}
+            >
+                <Carousel />
+            </section>
             <section className="snap-start h-screen flex items-center justify-center bg-gray-50 relative overflow-hidden">
                 <div className="absolute inset-0">
                     <svg viewBox="0 0 1440 320" className="absolute bottom-0 w-full">
