@@ -10,6 +10,15 @@ export default function Tournements() {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
+    let playersLoaded = false;
+    let teamsLoaded = false;
+
+    const checkLoadingStatus = () => {
+      if (playersLoaded && teamsLoaded) {
+        setIsLoading(false);
+      }
+    };
+
     const playersRef = ref(db, 'players');
     onValue(playersRef, (snapshot) => {
       const playersData = snapshot.val();
@@ -17,6 +26,8 @@ export default function Tournements() {
         const playersList = Object.values(playersData);
         setPlayers(playersList);
       }
+      playersLoaded = true; 
+      checkLoadingStatus(); 
     });
 
     const teamsRef = ref(db, 'teams');
@@ -25,15 +36,16 @@ export default function Tournements() {
       if (teamsData) {
         const teamsList = Object.keys(teamsData).map((teamId) => {
           const team = teamsData[teamId];
-          team.ownerName = teamId; // Set the team ID as the ownerName
-          console.log(`Team ID: ${teamId}`); // Log the team ID to the console
+          team.ownerName = teamId;
+          console.log(`Team ID: ${teamId}`);
           return team;
         });
         setTeams(teamsList);
+        console.log(teamsList);
       }
+      teamsLoaded = true; 
+      checkLoadingStatus(); 
     });
-
-    setIsLoading(false);
   }, []);
 
   const calculateStats = () => {
