@@ -1,0 +1,8 @@
+.transform-style-preserve-3d {
+    transform-style: preserve-3d;
+    perspective: 1000px;
+}
+
+html {
+    scroll-behavior: smooth;
+}
