@@ -25,7 +25,7 @@ export const fetchPlayerDatabase = (setPlayerDatabase, setMessages) => {
             setMessages([
                 {
                     sender: 'AI',
-                    message: "I have loaded the cricket player database. Ask me anything about team creation!",
+                    message: "Ask me anything about team creation!",
                     time: new Date().toLocaleTimeString(),
                 },
             ]);
