@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react";
-import { db, ref, get, set, onValue, off, remove } from "../services/firebase";
+import { db, ref, get, set, update, onValue, off, remove } from "../services/firebase";
 import toast from "react-hot-toast";
 import TeamDetails from "./TeamDetails";
 import SelectedTeamTable from "./SelectedTeamTable";
 import SelectPlayersTable from "./SelectPlayersTable";
+import { calculateBattingAverage, calculateBattingStrikeRate, calculateBowlingStrikeRate, calculateEconomyRate, calculatePlayerPoints } from "../utils/helper";
 
 function Team({ team }) {
     const [availablePlayers, setAvailablePlayers] = useState([]);
@@ -60,29 +61,44 @@ function Team({ team }) {
         return players.reduce((total, player) => total + player.playerValue, 0);
     };
 
-    const handleClear = (playerKey) => {
+    const handleClear = async (playerKey) => {
         const username = localStorage.getItem("username");
         if (!username) {
             toast.error("No username found in localStorage");
             return;
         }
 
+        const teamRef = ref(db, `teams/${username}`);
         const playerRef = ref(db, `teams/${username}/players/${playerKey}`);
-        remove(playerRef)
-            .then(() => {
-                const player = teamPlayers.find((p) => p.key === playerKey);
-                if (player) {
-                    // setBudget(prevBudget => prevBudget + player.playerValue);
-                }
-                toast.success("Player removed successfully!");
-            })
-            .catch((error) => {
-                console.error("Error removing player:", error);
-                toast.error("Failed to remove player.");
-            });
+
+        try {
+            const snapshot = await get(playerRef);
+            if (!snapshot.exists()) {
+                toast.error("Player not found!");
+                return;
+            }
+            const player = snapshot.val();
+
+            const teamSnapshot = await get(teamRef);
+            const teamData = teamSnapshot.val() || {};
+            const currentSpent = teamData.spentAmount || 0;
+
+            await update(teamRef, { spentAmount: Math.max(0, currentSpent - player.playerValue) });
+            await remove(playerRef);
+
+            toast.success("Player removed successfully!");
+        } catch (error) {
+            console.error("Error removing player:", error);
+            toast.error("Failed to remove player.");
+        }
     };
 
-    const handleAddPlayer = (playerKey) => {
+
+    useEffect(() => {
+        setIsCompleted(teamPlayers.length === 11);
+    }, [teamPlayers]);
+
+    const handleAddPlayer = async (playerKey) => {
         const username = localStorage.getItem("username");
         if (!username) {
             toast.error("No username found in localStorage");
@@ -108,20 +124,31 @@ function Team({ team }) {
             return;
         }
 
-        const teamPlayerRef = ref(db, `teams/${username}/players/${playerKey}`);
-        set(teamPlayerRef, player)
-            .then(() => {
-                // setBudget(prevBudget => prevBudget - player.playerValue);
-                toast.success("Player added successfully!");
-                if (teamPlayers.length + 1 === 11) {
-                    setIsCompleted(true)
-                }
-            })
-            .catch((error) => {
-                console.error("Error adding player:", error);
-                toast.error("Failed to add player.");
-            });
+        const teamRef = ref(db, `teams/${username}`);
+
+        try {
+            const snapshot = await get(teamRef);
+            const teamData = snapshot.val() || {};
+            const currentSpent = teamData.spentAmount || 0;
+
+            await update(teamRef, { spentAmount: currentSpent + player.playerValue });
+
+            const teamPlayerRef = ref(db, `teams/${username}/players/${playerKey}`);
+            await set(teamPlayerRef, player);
+
+            toast.success("Player added successfully!");
+
+            if (teamPlayers.length + 1 === 11) {
+                const totalPoints = calculateTeamPoints([...teamPlayers, player]);
+                await update(teamRef, { points: Math.round(totalPoints * 100) / 100 });
+            }
+        } catch (error) {
+            console.error("Error adding player:", error);
+            toast.error("Failed to add player.");
+        }
     };
+    
+
 
     const handleCategoryChange = (category) => {
         setSelectedCategory(category);
@@ -130,6 +157,19 @@ function Team({ team }) {
 
     const handlePageChange = (pageNumber) => {
         setCurrentPage(pageNumber);
+    };
+
+    const calculateTeamPoints = (players) => {
+        let totalPoints = 0;
+        players.forEach(player => {
+            const battingStrike = calculateBattingStrikeRate(player.totalRuns, player.ballsFaced);
+            const battingAverage = calculateBattingAverage(player.totalRuns, player.inningsPlayed);
+            const bowlingStrikeRate = calculateBowlingStrikeRate(player.oversBowled, player.wickets);
+            const economyRate = calculateEconomyRate(player.runsConceded, player.oversBowled);
+            const playerPoints = calculatePlayerPoints(battingStrike, battingAverage, bowlingStrikeRate, economyRate);
+            totalPoints += playerPoints;
+        });
+        return totalPoints;
     };
 
     const filteredPlayers = availablePlayers.filter((player) =>
@@ -148,7 +188,7 @@ function Team({ team }) {
     return (
         <div className="">
             <h2 className="text-2xl font-semibold mb-4">My Team</h2>
-            <TeamDetails budget={remainingBudget} teamLength={teamPlayers?.length} teamName={team.teamName} isCompleted={isCompleted} />
+            <TeamDetails budget={remainingBudget} teamLength={teamPlayers?.length} teamName={team.teamName} points={team.points} isCompleted={isCompleted} />
             <SelectedTeamTable team={teamPlayers} handleClear={(id) => handleClear(id)} />
 
             <h3 className="text-xl font-semibold mb-2">Select Players</h3>
