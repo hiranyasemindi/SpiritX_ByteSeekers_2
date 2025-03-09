@@ -1,70 +1,118 @@
-# Getting Started with Create React App
+# Spirit11 - Fantasy Cricket League Platform
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Spirit11 is a fantasy cricket league platform developed during a 36-hour hackathon as part of the SpiritX 2025 event. The platform allows users to create and manage their dream cricket teams using real university player data. Users can analyze player statistics, manage budgets, and compete on a leaderboard. The platform also features an AI-powered chatbot named "Spiriter" that assists users in making smart team selections.
 
-## Available Scripts
+## Project Overview
 
-In the project directory, you can run:
+The project consists of three main components:
 
-### `npm start`
+1. **Admin Panel**: For managing players and their statistics.
+2. **User Interface**: For team creation and management.
+3. **Spiriter Chatbot**: An AI-powered chatbot that assists users in making informed team selections.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+The application was developed by:
+- [@iamvirul](https://github.com/iamvirul)
+- [@hiranyasemindi](https://github.com/hiranyasemindi)
+- [@tilaknagunawardhane](https://github.com/tilaknagunawardhane)
+- [@Threadstone15 (Udeepa Gallage)](https://github.com/Threadstone15)
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Prerequisites
 
-### `npm test`
+Before running the project, ensure you have the following:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- **Node.js** installed on your machine.
+- **Firebase** account with a project set up.
+- **OpenAI API Key** for the AI-powered chatbot.
 
-### `npm run build`
+## Steps to Run the Project
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### 1. Clone the Repository
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+First, clone the project repository using the following command:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```bash
+git clone https://github.com/hiranyasemindi/spirit11.git
+```
 
-### `npm run eject`
+### 2. Install Dependencies
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+Navigate to the project directory and install the required dependencies:
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+```bash
+cd spirit11
+npm install
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+### 3. Set Up Firebase
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+1. **Create a Firebase Project**:
+   - Go to the [Firebase Console](https://console.firebase.google.com/).
+   - Create a new project and enable the **Realtime Database** service.
 
-## Learn More
+2. **Configure Firebase SDK**:
+   - In the Firebase Console, go to **Project Settings** > **General**.
+   - Under **Your apps**, add a new web app if you haven't already.
+   - Copy the Firebase configuration object (it will look something like this):
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+     ```javascript
+     const firebaseConfig = {
+       apiKey: "YOUR_API_KEY",
+       authDomain: "YOUR_AUTH_DOMAIN",
+       databaseURL: "YOUR_DATABASE_URL",
+       projectId: "YOUR_PROJECT_ID",
+       storageBucket: "YOUR_STORAGE_BUCKET",
+       messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+       appId: "YOUR_APP_ID"
+     };
+     ```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+   - Replace the placeholder values in `src/services/firebase.js` with your Firebase configuration.
 
-### Code Splitting
+### 4. Set Up OpenAI API Key
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+1. **Get Your OpenAI API Key**:
+   - Go to the [OpenAI Dashboard](https://platform.openai.com/).
+   - Generate an API key if you don't already have one.
 
-### Analyzing the Bundle Size
+2. **Configure the API Key**:
+   - Open the file `src/utils/chatbotUtils.js`.
+   - Replace the placeholder with your OpenAI API key:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+     ```javascript
+     const openAIKey = "PLACE_YOUR_OPENAI_API_KEY_HERE";
+     ```
 
-### Making a Progressive Web App
+### 5. Run the Application
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+Once all the configurations are in place, you can start the application:
 
-### Advanced Configuration
+```bash
+npm start
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+The application should now be running on `http://localhost:3000`.
 
-### Deployment
+## Features
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+- **User Interface**:
+  - Create and manage your fantasy cricket team.
+  - Analyze player statistics and manage your budget.
+  - Compete on the leaderboard with other users.
 
-### `npm run build` fails to minify
+- **Admin Panel**:
+  - Manage player data and statistics.
+  - Update player information and performance metrics.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- **Spiriter Chatbot**:
+  - AI-powered assistance for team selection.
+  - Provides recommendations based on player statistics and budget.
+
+## Acknowledgments
+
+- **Firebase** for providing the real-time database service.
+- **OpenAI** for powering the Spiriter chatbot.
+- **SpiritX 2025** for organizing the hackathon.
+
+---
+
+Enjoy building your dream cricket team with Spirit11! 🏏
