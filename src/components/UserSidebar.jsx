@@ -1,6 +1,6 @@
 import { FaSignOutAlt, FaBars, FaTimes } from "react-icons/fa";
 import { HiOutlineViewGrid } from "react-icons/hi";
-import { MdSportsCricket, MdPeopleAlt, MdGroups, MdChat } from "react-icons/md"; // Updated icons
+import { MdSportsCricket, MdPeopleAlt, MdGroups, MdChat, MdAttachMoney   } from "react-icons/md"; // Updated icons
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { signOut, auth } from '../services/firebase'
@@ -59,7 +59,7 @@ export default function Sidebar() {
                                 <NavItem icon={<HiOutlineViewGrid />} text="Leaderboard" link="/user/leaderboard" />
                                 <NavItem icon={<MdSportsCricket />} text="Players" link="/user/players" />
                                 <NavItem icon={<MdGroups />} text="Teams" link="/user/team" />
-                                <NavItem icon={<MdChat />} text="Chatbot" link="/user/chatbot" />
+                                <NavItem icon={<MdAttachMoney  />} text="Budget" link="/user/budget" />
                             </ul>
                         </nav>
                         <button onClick={handleLogout} className="relative inline-flex w-full items-center justify-center px-6 py-3 font-medium bg-o rounded-md bg-secondary
