@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Header from '../components/Header';
 import Button from '../components/Button';
 import Carousel from '../components/Carousel';
@@ -10,6 +10,32 @@ import { useNavigate } from 'react-router-dom';
 
 const LandingPage = () => {
     const navigate = useNavigate();
+
+    useEffect(() => {
+        const handleScroll = (event) => {
+            const sections = document.querySelectorAll('section');
+            let currentSection = null;
+
+            // Find the current section in view
+            sections.forEach((section) => {
+                const rect = section.getBoundingClientRect();
+                if (rect.top <= window.innerHeight / 2 && rect.bottom >= window.innerHeight / 2) {
+                    currentSection = section;
+                }
+            });
+
+            // Snap to the top of the current section
+            if (currentSection) {
+                window.scrollTo({
+                    top: currentSection.offsetTop,
+                    behavior: 'auto', // Instant scroll
+                });
+            }
+        };
+
+        window.addEventListener('scroll', handleScroll);
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, []);
 
     return (
         <div className="snap-y snap-mandatory h-screen overflow-y-scroll">
