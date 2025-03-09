@@ -74,12 +74,12 @@ const Carousel = () => {
 
     return (
         <section className="h-[500px] md:h-[700px] flex items-center justify-center relative bg-cover bg-center" 
-         style={{ backgroundImage: "url('./images/c_bg.png')" }}>
+         >
     {/* Dark Overlay */}
-    <div className="absolute inset-0 bg-black bg-opacity-50"></div>
+    {/* <div className="absolute inset-0 bg-black bg-opacity-50"></div> */}
 
     <div className="container mx-auto px-6 relative z-10">
-        <h2 className="text-3xl font-bold text-center mb-20 text-white">
+        <h2 className="text-3xl font-bold text-center mb-20 text-black">
             Inter-University Cricket Teams
         </h2>
 
