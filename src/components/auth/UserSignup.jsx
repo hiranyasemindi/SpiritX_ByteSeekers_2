@@ -4,6 +4,8 @@ import Button from '../Button';
 import { userValidateSignup } from '../../utils/validations';
 import { getDatabase, ref, set } from 'firebase/database';
 import CryptoJS from 'crypto-js';
+import toast from 'react-hot-toast';
+import { Link, useNavigate } from 'react-router-dom';
 
 const UserSignup = () => {
     const [username, setUsername] = useState('');
@@ -12,6 +14,7 @@ const UserSignup = () => {
     const [errors, setErrors] = useState({});
     const [loading, setLoading] = useState(false);
     const [firebaseError, setFirebaseError] = useState(null);
+    const navigate = useNavigate();
 
     const handleUsernameChange = (e) => setUsername(e.target.value);
     const handlePasswordChange = (e) => setPassword(e.target.value);
@@ -27,7 +30,7 @@ const UserSignup = () => {
             setFirebaseError(null);
 
             try {
-                const secretKey = process.env.REACT_APP_SECRET_KEY;
+                const secretKey = "86d29979-dcb3-4580-a049-a0c9e21ce494";
 
                 const hashedPassword = CryptoJS.HmacSHA256(password, secretKey).toString();
 
@@ -44,7 +47,8 @@ const UserSignup = () => {
                 setConfirmPassword('');
                 setLoading(false);
 
-                alert('Signup successful!');
+                toast.success('Signup successful!');
+                navigate('/user/login')
 
             } catch (error) {
                 setFirebaseError(error.message);
@@ -90,6 +94,15 @@ const UserSignup = () => {
 
                     <div className="mt-6">
                         <Button styles={'w-full'} type="submit" loading={loading} >Signup</Button>
+                    </div>
+
+                    <div className="mt-4 text-center">
+                        <p className="text-sm text-gray-600">
+                            Already registered yet?{' '}
+                            <Link to="/user/login" className="text-primary hover:underline">
+                                Login
+                            </Link>
+                        </p>
                     </div>
                 </form>
             </div>

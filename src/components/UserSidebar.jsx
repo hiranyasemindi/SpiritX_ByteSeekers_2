@@ -58,7 +58,7 @@ export default function Sidebar() {
                             <ul className="space-y-4">
                                 <NavItem icon={<HiOutlineViewGrid />} text="Leaderboard" link="/user/leaderboard" />
                                 <NavItem icon={<MdSportsCricket />} text="Players" link="/user/players" />
-                                <NavItem icon={<MdGroups />} text="Teams" link="/user/team" />
+                                <NavItem icon={<MdGroups />} text="My Team" link="/user/team" />
                                 <NavItem icon={<MdAttachMoney  />} text="Budget" link="/user/budget" />
                             </ul>
                         </nav>
