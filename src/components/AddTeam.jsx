@@ -33,7 +33,7 @@ function AddTeam() {
 
     return (
         <div className="p-5 bg-white shadow-md rounded-md">
-            <h2 className="text-xl font-semibold mb-3">Add Your Team</h2>
+      <h1 className="text-2xl font-bold mb-6">Add Your Team</h1>
             <div className="flex items-center space-x-3">
                 <Input
                     type="text"

@@ -68,7 +68,7 @@ const SelectedTeamTable = ({ team, handleClear }) => {
 
     return (
         <div>
-            <h3 className="text-xl font-semibold mb-2">Selected Players</h3>
+            <h1 className="text-2xl font-bold mb-6">Selected Players</h1>
             <table className="min-w-full bg-white border border-gray-300 shadow-lg mb-6">
                 <thead>
                     <tr>
