@@ -60,9 +60,8 @@ export default function TeamTable({ teamData = [], isLoading }) {
         <button
           key={i}
           onClick={() => handlePageChange(i)}
-          className={`px-4 py-2 mx-1 border rounded-md ${
-            currentPage === i ? 'bg-primary text-white' : 'bg-white'
-          }`}
+          className={`px-4 py-2 mx-1 border rounded-md ${currentPage === i ? 'bg-primary text-white' : 'bg-white'
+            }`}
         >
           {i}
         </button>

@@ -103,7 +103,6 @@ const UserLogin = () => {
                         <Button styles={'w-full'} type="submit" loading={loading}>Login</Button>
                     </div>
 
-                    {/* Add the "Not registered yet? Register" link */}
                     <div className="mt-4 text-center">
                         <p className="text-sm text-gray-600">
                             Not registered yet?{' '}

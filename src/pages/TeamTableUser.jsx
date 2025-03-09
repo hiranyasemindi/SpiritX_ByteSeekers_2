@@ -57,9 +57,8 @@ export default function TeamTableUser({ teamData, isLoading }) {
         <button
           key={i}
           onClick={() => handlePageChange(i)}
-          className={`px-4 py-2 mx-1 border rounded-md ${
-            currentPage === i ? 'bg-primary text-white' : 'bg-white'
-          }`}
+          className={`px-4 py-2 mx-1 border rounded-md ${currentPage === i ? 'bg-primary text-white' : 'bg-white'
+            }`}
         >
           {i}
         </button>
@@ -166,7 +165,7 @@ export default function TeamTableUser({ teamData, isLoading }) {
                     exit={{ opacity: 0, y: -10 }}
                     transition={{ type: 'spring', stiffness: 300, damping: 30 }}
                     className="hover:bg-gray-100"
-                    onClick={()=>{
+                    onClick={() => {
                       navigate(`team/${team.id}`)
                     }}
                   >

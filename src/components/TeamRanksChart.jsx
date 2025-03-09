@@ -12,7 +12,7 @@ const data = [
   { name: 'Team C', points: 3 },
   { name: 'Team D', points: 4 },
   { name: 'Team E', points: 5 },
-  
+
 ];
 
 export default function TeamRanksChart() {

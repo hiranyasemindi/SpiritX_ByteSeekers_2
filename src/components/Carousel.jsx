@@ -5,7 +5,7 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import CarouselCard from './CarouselCard';
-import { db, ref, onValue } from '../services/firebase'; // Adjust the import according to your file structure
+import { db, ref, onValue } from '../services/firebase';
 
 const Carousel = () => {
     const [universities, setUniversities] = useState([]);
@@ -13,8 +13,8 @@ const Carousel = () => {
     const nextRef = useRef(null);
 
     useEffect(() => {
-        const universitiesRef = ref(db, 'universities'); // Path where universities are stored
-        const playersRef = ref(db, 'players'); // Path where players are stored
+        const universitiesRef = ref(db, 'universities');
+        const playersRef = ref(db, 'players');
 
         console.log('Fetching universities data...');
         const unsubscribe = onValue(universitiesRef, (uniSnapshot) => {
@@ -24,20 +24,17 @@ const Carousel = () => {
 
                 const uniList = [];
 
-                // Fetch number of players for each university
                 console.log('Fetching players data...');
                 onValue(playersRef, (playersSnapshot) => {
                     if (playersSnapshot.exists()) {
                         const playersData = playersSnapshot.val();
                         console.log('Players data fetched:', playersData);
 
-                        // Initialize a count for players per university
                         const playerCountMap = {};
 
-                        // Count players for each university
                         for (let playerId in playersData) {
                             const player = playersData[playerId];
-                            const universityName = player.university; // Get the university name
+                            const universityName = player.university;
 
                             if (universityName) {
                                 if (!playerCountMap[universityName]) {
@@ -47,10 +44,9 @@ const Carousel = () => {
                             }
                         }
 
-                        // Populate university list with player count
                         for (let uniId in uniData) {
                             const uni = uniData[uniId];
-                            const playersForUniCount = playerCountMap[uni.name] || 0; // Get player count or 0 if not found
+                            const playersForUniCount = playerCountMap[uni.name] || 0;
 
                             uniList.push({
                                 id: uniId,
@@ -82,9 +78,9 @@ const Carousel = () => {
                 <h2 className="text-3xl font-bold text-center mb-20 text-primary">
                     Inter-University Cricket Teams
                 </h2>
-    
+
                 {universities.length === 0 ? (
-                    <div>Loading...</div> // Or a spinner, or a message
+                    <div>Loading...</div>
                 ) : (
                     <Swiper
                         modules={[Navigation, Autoplay]}
@@ -126,7 +122,7 @@ const Carousel = () => {
             </div>
         </section>
     );
-    
+
 };
 
 export default Carousel;

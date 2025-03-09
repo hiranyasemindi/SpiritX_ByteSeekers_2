@@ -1,5 +1,4 @@
 import React from 'react'
-// import TournementStats from './TournementStats'
 import TournementStats from '../components/TournementStats'
 import TeamTableUser from './TeamTableUser'
 import Tournament from '../components/TournementStats'

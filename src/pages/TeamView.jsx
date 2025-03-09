@@ -9,10 +9,10 @@ export default function TeamView() {
   const [user, setUser] = useState('User A')
 
   return (
-   <>
+    <>
       <h1 className="text-2xl font-bold mb-6">Team Summary</h1>
-    <TeamProfileCard teamName={teamName} points={points} budget={budget} User={user}/>
-    <TeamPlayersTable playerList={[
+      <TeamProfileCard teamName={teamName} points={points} budget={budget} User={user} />
+      <TeamPlayersTable playerList={[
         {
           playerName: 'Dinesh Samarawickrama',
           university: 'University of Jaffna',
@@ -79,7 +79,7 @@ export default function TeamView() {
           oversBowled: 60,
           runsConceded: 360
         }
-    ]} isLoading={false}/>
-   </>
+      ]} isLoading={false} />
+    </>
   )
 }

@@ -16,7 +16,6 @@ const LandingPage = () => {
             const sections = document.querySelectorAll('section');
             let currentSection = null;
 
-            // Find the current section in view
             sections.forEach((section) => {
                 const rect = section.getBoundingClientRect();
                 if (rect.top <= window.innerHeight / 2 && rect.bottom >= window.innerHeight / 2) {
@@ -24,11 +23,10 @@ const LandingPage = () => {
                 }
             });
 
-            // Snap to the top of the current section
             if (currentSection) {
                 window.scrollTo({
                     top: currentSection.offsetTop,
-                    behavior: 'auto', // Instant scroll
+                    behavior: 'auto',
                 });
             }
         };
@@ -39,7 +37,6 @@ const LandingPage = () => {
 
     return (
         <div className="snap-y snap-mandatory h-screen overflow-y-scroll">
-            {/* Header */}
             <Header />
 
             {/* Hero Section */}
@@ -117,7 +114,6 @@ const LandingPage = () => {
                 </div>
             </section>
 
-            {/* Footer */}
             <Footer />
         </div>
     );

@@ -13,7 +13,7 @@ const FloatingChatButton = () => {
   return (
     <div className="fixed flex bottom-4 right-4 z-50">
       <div className="flex flex-col md:flex-row justify-center items-center cursor-pointer"
-          onClick={toggleChat}
+        onClick={toggleChat}
       >
         <div className="w-32 h-32 flex justify-items-start">
           <Lottie animationData={lottie1} loop={true} width={100} />
@@ -41,13 +41,12 @@ const FloatingChatButton = () => {
         </button>
       </div>
       <div
-        className={`fixed bottom-20 right-1 md:right-4 w-[90%] md:w-1/3 h-[500px] bg-white rounded-lg shadow-lg overflow-hidden transition-all duration-300 ${
-          isChatOpen
+        className={`fixed bottom-20 right-1 md:right-4 w-[90%] md:w-1/3 h-[500px] bg-white rounded-lg shadow-lg overflow-hidden transition-all duration-300 ${isChatOpen
             ? "opacity-100 translate-y-0"
             : "opacity-0 translate-y-4 pointer-events-none"
-        }`}
+          }`}
       >
-        <UserChatbot toggleChat={toggleChat}/>
+        <UserChatbot toggleChat={toggleChat} />
       </div>
     </div>
   );

@@ -6,15 +6,15 @@ import { db, onValue, ref } from "../services/firebase";
 function UserTeam() {
     const [teams, setTeams] = useState({});
     const username = localStorage.getItem("username")
-    
+
     useEffect(() => {
         const teamRef = ref(db, `teams/${username}`);
 
         const unsubscribe = onValue(teamRef, (snapshot) => {
             if (snapshot.exists()) {
-                setTeams(snapshot.val()); 
+                setTeams(snapshot.val());
             } else {
-                setTeams(null); 
+                setTeams(null);
             }
         });
 
@@ -25,7 +25,7 @@ function UserTeam() {
             {teams == null ? (<>
                 <AddTeam />
             </>) : (<>
-                <Team team={teams}/>
+                <Team team={teams} />
             </>)}
         </div>
     )

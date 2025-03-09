@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const SelectedTeamTable = ({ team , handleClear}) => {
+const SelectedTeamTable = ({ team, handleClear }) => {
     const [currentPage, setCurrentPage] = useState(1);
     const itemsPerPage = 5;
 

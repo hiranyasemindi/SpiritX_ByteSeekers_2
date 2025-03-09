@@ -9,7 +9,7 @@ import { useNavigate } from "react-router-dom";
 import { db, ref, remove } from "../services/firebase";
 
 
-export default function TeamPlayersTable({playerList, isLoading}) {
+export default function TeamPlayersTable({ playerList, isLoading }) {
   const [players, setPlayers] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(10);
@@ -114,7 +114,7 @@ export default function TeamPlayersTable({playerList, isLoading}) {
       <table className="min-w-full bg-white border border-gray-300 shadow-lg">
         <thead>
           <tr>
-          <th className="py-2 px-4 border-b text-left">Player Name</th>
+            <th className="py-2 px-4 border-b text-left">Player Name</th>
             <th className="py-2 px-4 border-b text-left">University</th>
             <th className="py-2 px-4 border-b text-left">Category</th>
             <th className="py-2 px-4 border-b text-left">Total Runs</th>

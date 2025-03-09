@@ -3,7 +3,7 @@ import { db, ref, onValue } from '../services/firebase';
 import { useNavigate } from "react-router-dom";
 
 function PlayersJson() {
-    const [playersJson, setPlayersJson] = useState(""); // State to store JSON string
+    const [playersJson, setPlayersJson] = useState("");
     const [loading, setLoading] = useState(false);
 
     useEffect(() => {
@@ -14,16 +14,14 @@ function PlayersJson() {
             if (snapshot.exists()) {
                 const playersData = snapshot.val();
 
-                // Convert the players data to JSON format
-                const playersJsonString = JSON.stringify(playersData, null, 2); // Pretty-print JSON
+                const playersJsonString = JSON.stringify(playersData, null, 2);
                 console.log('playersJson:', playersJsonString);
 
-                // Update the state with the JSON string
                 setPlayersJson(playersJsonString);
                 setLoading(false);
             } else {
                 console.log('No data available');
-                setPlayersJson("{}"); // Set empty JSON object if no data exists
+                setPlayersJson("{}");
                 setLoading(false);
             }
         });
@@ -39,7 +37,7 @@ function PlayersJson() {
             {loading ? (
                 <p>Loading...</p>
             ) : (
-                <pre>{playersJson}</pre> // Display the JSON string in a <pre> tag for formatting
+                <pre>{playersJson}</pre>
             )}
         </div>
     );

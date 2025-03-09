@@ -1,6 +1,6 @@
 import { db, ref, onValue } from '../services/firebase';
-const openAIKey = "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"; 
-const GPT_MODEL = "gpt-4-turbo"; 
+const openAIKey = "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";
+const GPT_MODEL = "gpt-4-turbo";
 
 export const fetchPlayerDatabase = (setPlayerDatabase, setMessages) => {
     console.log("Fetching player database from Firebase...");

@@ -40,7 +40,7 @@ const PlayerForm = () => {
         wickets: parseInt(player?.wickets) || 0,
         oversBowled: parseInt(player?.oversBowled) || 0,
         runsConceded: parseInt(player?.runsConceded) || 0,
-        playerValue:parseInt(player?.playerValue) || 0,
+        playerValue: parseInt(player?.playerValue) || 0,
     });
 
     const [errors, setErrors] = useState({});

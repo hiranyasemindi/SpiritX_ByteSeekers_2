@@ -29,19 +29,16 @@ const UserSignup = () => {
             try {
                 const secretKey = process.env.REACT_APP_SECRET_KEY;
 
-                // Hash the password using the secret key
                 const hashedPassword = CryptoJS.HmacSHA256(password, secretKey).toString();
 
-                // Save user data in Firebase Realtime Database
                 const database = getDatabase();
-                const userRef = ref(database, `users/${username}`); // Use username as the key
+                const userRef = ref(database, `users/${username}`);
                 await set(userRef, {
                     username,
-                    password: hashedPassword, // Save the hashed password
+                    password: hashedPassword,
                     createdAt: new Date().toISOString()
                 });
 
-                // Reset form fields
                 setUsername('');
                 setPassword('');
                 setConfirmPassword('');
