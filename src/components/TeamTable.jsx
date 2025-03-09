@@ -13,7 +13,7 @@ export default function TeamTable({ teamData = [], isLoading }) {
 
   useEffect(() => {
     const handleResize = () => {
-      setItemsPerPage(window.innerWidth <= 768 ? 9 : 13);
+      setItemsPerPage(window.innerWidth <= 768 ? 5 : 8);
     };
 
     handleResize();
@@ -173,7 +173,7 @@ export default function TeamTable({ teamData = [], isLoading }) {
                     transition={{ type: 'spring', stiffness: 300, damping: 30 }}
                     className="hover:bg-gray-100"
                     onClick={() => {
-                      navigate(`team/${team.id}`);
+                      navigate(`team/${team.ownerName}`);
                     }}
                   >
                     <td

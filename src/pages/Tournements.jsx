@@ -82,7 +82,7 @@ export default function Tournements() {
         highestWicketTaker={highestWicketTaker}
         isLoading={isLoading}
       />
-      <TeamTable teamData={teams} />
+      <TeamTable teamData={teams} isLoading={isLoading} />
     </>
   );
 }

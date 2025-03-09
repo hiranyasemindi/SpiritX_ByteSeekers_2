@@ -1,12 +1,14 @@
 import React, { use, useState } from 'react'
 import TeamProfileCard from '../components/TeamProfileCard'
 import TeamPlayersTable from '../components/TeamPlayersTable'
+import { useParams } from 'react-router-dom'
 
 export default function TeamView() {
   const [teamName, setTeamName] = useState('Team A')
   const [points, setPoints] = useState(100)
   const [budget, setBudget] = useState(1000000)
   const [user, setUser] = useState('User A')
+  const { id } = useParams();
 
   return (
     <>
