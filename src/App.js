@@ -18,6 +18,7 @@ import UserLeaderboard from "./pages/UserLeaderboard";
 import UserPlayers from "./pages/UserPlayers";
 import UserTeams from "./pages/UserTeams";
 import UserChatbot from "./pages/UserChatbot";
+import UserBudget from "./pages/UserBudget";
 
 function App() {
   return (
@@ -128,11 +129,11 @@ function App() {
           }
         />
         <Route
-          path="/user/chatbot"
+          path="/user/budget"
           element={
             <UserProtectedRoute>
               <UserLayout>
-                <UserChatbot />
+                <UserBudget />
               </UserLayout>
             </UserProtectedRoute>
           }
