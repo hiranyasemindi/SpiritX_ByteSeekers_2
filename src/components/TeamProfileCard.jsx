@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function TeamProfileCard({ teamName, points, budget, User }) {
+export default function TeamProfileCard({ teamName, points, spentAmount, User }) {
   return (
     <div className="max-w-7xl mx-auto pb-3">
       <div className="bg-white p-6 rounded-lg shadow-md flex items-center justify-between">
@@ -16,7 +16,7 @@ export default function TeamProfileCard({ teamName, points, budget, User }) {
             Budget:{" "}
             <span className="text-primary text-lg font-semibold">
               LKR
-              {budget}
+              {spentAmount}
             </span>
           </p>
         </div>

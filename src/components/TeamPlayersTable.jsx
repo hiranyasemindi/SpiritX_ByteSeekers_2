@@ -1,12 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
-import toast from "react-hot-toast";
-import { CiEdit } from "react-icons/ci";
-import { FiMoreVertical } from "react-icons/fi";
-import { MdOutlineDelete } from "react-icons/md";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import { useNavigate } from "react-router-dom";
-import { db, ref, remove } from "../services/firebase";
 
 
 export default function TeamPlayersTable({ playerList, isLoading }) {
@@ -141,7 +136,9 @@ export default function TeamPlayersTable({ playerList, isLoading }) {
               <tr
                 key={index}
                 className="hover:bg-gray-100 cursor-pointer"
-                onClick={() => navigate(`${player.id}`, { state: { player } })}
+                onClick={() => 
+                  navigate(`/admin/players/${player.key}`, { state: { player } })
+                }
               >
                 <td className="py-2 px-4 border-b text-center">{truncateText(player.playerName, 8)}</td>
                 <td className="py-2 px-4 border-b">{truncateText(player.university, 20)}</td>
