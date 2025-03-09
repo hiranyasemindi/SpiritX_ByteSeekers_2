@@ -27,7 +27,6 @@ const UserSignup = () => {
             setFirebaseError(null);
 
             try {
-                // Get the secret key from .env file
                 const secretKey = process.env.REACT_APP_SECRET_KEY;
 
                 // Hash the password using the secret key

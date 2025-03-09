@@ -3,11 +3,13 @@ import Input from "./Input";
 import Button from "./Button";
 import toast from "react-hot-toast";
 import { db, ref, set } from "../services/firebase";
+import { useNavigate } from "react-router-dom";
 
 function AddTeam() {
     const [teamName, setTeamName] = useState("");
     const [budget, setBudget] = useState(9000000);
     const username = localStorage.getItem("username")
+    const navigate = useNavigate()
 
     const handleAddTeam = () => {
         if (teamName.trim() === "") {
@@ -25,8 +27,8 @@ function AddTeam() {
                 toast.success("Team created successfully!");
             })
             .catch(() => toast.error("Error creating team."));
-        console.log("Added Team:", teamName);
         setTeamName("");
+        navigate('/user/team')
     };
 
     return (
