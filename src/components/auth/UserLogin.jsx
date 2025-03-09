@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Input from '../Input';
 import Button from '../Button';
 import { getDatabase, ref, get } from 'firebase/database';
@@ -10,9 +11,12 @@ const UserLogin = () => {
     const [password, setPassword] = useState('');
     const [errors, setErrors] = useState({});
     const [loading, setLoading] = useState(false);
+    const navigate = useNavigate();
 
     const handleUsernameChange = (e) => setUsername(e.target.value);
     const handlePasswordChange = (e) => setPassword(e.target.value);
+
+    const generateToken = () => CryptoJS.lib.WordArray.random(32).toString();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -37,29 +41,35 @@ const UserLogin = () => {
             if (!snapshot.exists()) {
                 setErrors({ loginError: 'User not found' });
                 setLoading(false);
-                return
+                return;
             }
 
             const userData = snapshot.val();
 
             const secretKey = "86d29979-dcb3-4580-a049-a0c9e21ce494";
-
             const hashedPassword = CryptoJS.HmacSHA256(password, secretKey).toString();
 
             if (hashedPassword !== userData.password) {
                 setErrors({ loginError: 'Invalid Credentials' });
                 setLoading(false);
-                return
+                return;
             }
 
+            const token = generateToken();
+            const expiry = new Date().getTime() + 60 * 60 * 1000;
+
+            localStorage.setItem('authToken', token);
+            localStorage.setItem('username', username);
+            localStorage.setItem('authExpiry', expiry.toString());
+
             toast.success('Login successful!');
-            console.log('User Data:', userData);
+            navigate('/user/leaderboard'); 
 
             setUsername('');
             setPassword('');
             setLoading(false);
         } catch (error) {
-            setErrors({ loginError: error.message })
+            setErrors({ loginError: error.message });
             setLoading(false);
         }
     };
@@ -90,7 +100,7 @@ const UserLogin = () => {
                     {errors.password && <p className="text-red-500 text-sm mt-1">{errors.password}</p>}
 
                     <div className="mt-6">
-                        <Button styles={'w-full'} type="submit" loading={loading} >Login</Button>
+                        <Button styles={'w-full'} type="submit" loading={loading}>Login</Button>
                     </div>
                 </form>
             </div>
