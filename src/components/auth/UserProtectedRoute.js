@@ -2,16 +2,15 @@ import React from 'react';
 import { Navigate } from 'react-router-dom';
 
 const UserProtectedRoute = ({ children }) => {
-    // Check if the user is authenticated
-    const token = localStorage.getItem('userToken');
-    const tokenExpiration = localStorage.getItem('userTokenExpiration');
+    const token = localStorage.getItem('authToken');
+    const expiry = localStorage.getItem('authExpiry');
 
-    // If there's no token or the token has expired, redirect to the login page
-    if (!token || !tokenExpiration || Date.now() > tokenExpiration) {
-        return <Navigate to="/user/login" replace />;
+    if (!token || !expiry || new Date().getTime() > parseInt(expiry)) {
+        localStorage.removeItem('authToken');
+        localStorage.removeItem('authExpiry');
+        return <Navigate to="/login" />;
     }
 
-    // If authenticated, render the children (protected pages)
     return children;
 };
 
