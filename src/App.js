@@ -100,41 +100,51 @@ function App() {
         <Route
           path="/user/leaderboard"
           element={
-            <ProtectedRoute>
+            <UserProtectedRoute>
               <UserLayout>
                 <UserLeaderboard />
               </UserLayout>
-            </ProtectedRoute>
+            </UserProtectedRoute>
           }
         />
         <Route
           path="/user/players"
           element={
-            <ProtectedRoute>
+            <UserProtectedRoute>
               <UserLayout>
                 <UserPlayers />
               </UserLayout>
-            </ProtectedRoute>
+            </UserProtectedRoute>
           }
         />
         <Route
-          path="/user/teams"
+          path="/user/team"
           element={
-            <ProtectedRoute>
+            <UserProtectedRoute>
               <UserLayout>
                 <UserTeams />
               </UserLayout>
-            </ProtectedRoute>
+            </UserProtectedRoute>
           }
         />
         <Route
           path="/user/chatbot"
           element={
-            <ProtectedRoute>
+            <UserProtectedRoute>
               <UserLayout>
                 <UserChatbot />
               </UserLayout>
-            </ProtectedRoute>
+            </UserProtectedRoute>
+          }
+        />
+        <Route
+          path="user/players/:id"
+          element={
+            <UserProtectedRoute>
+              <Layout>
+                <PlayerData />
+              </Layout>
+            </UserProtectedRoute>
           }
         />
       </Routes>
