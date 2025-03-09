@@ -4,12 +4,13 @@ import Skeleton from 'react-loading-skeleton';
 import { FaMedal } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 
-export default function TeamTable({ teamData, isLoading }) {
+export default function TeamTable({ teamData = [], isLoading }) {
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(13);
-  const totalPages = Math.ceil(teamData.length / itemsPerPage);
+  const totalPages = Math.ceil((teamData?.length || 0) / itemsPerPage);
   const prevRankRef = useRef();
   const navigate = useNavigate();
+
   useEffect(() => {
     const handleResize = () => {
       setItemsPerPage(window.innerWidth <= 768 ? 9 : 13);
@@ -31,6 +32,8 @@ export default function TeamTable({ teamData, isLoading }) {
   }, [teamData]);
 
   const renderPagination = () => {
+    if (totalPages <= 1) return null;
+
     const paginationButtons = [];
     const maxPagesToShow = 8;
     let startPage, endPage;
@@ -90,13 +93,16 @@ export default function TeamTable({ teamData, isLoading }) {
   };
 
   const truncateText = (text, maxLength) => {
+    if (!text) return '';
     return text.length > maxLength ? text.substring(0, maxLength) + '...' : text;
   };
 
   const sortedTeams = teamData
-    .map((team) => ({ ...team, points: parseInt(team.points, 10) }))
-    .sort((a, b) => b.points - a.points)
-    .map((team, index) => ({ ...team, rank: index + 1 }));
+    ? teamData
+        .map((team) => ({ ...team, points: parseInt(team.points, 10) || 0 }))
+        .sort((a, b) => b.points - a.points)
+        .map((team, index) => ({ ...team, rank: index + 1 }))
+    : [];
 
   const renderRank = (rank) => {
     if (rank === 1) {
@@ -166,8 +172,8 @@ export default function TeamTable({ teamData, isLoading }) {
                     exit={{ opacity: 0, y: -10 }}
                     transition={{ type: 'spring', stiffness: 300, damping: 30 }}
                     className="hover:bg-gray-100"
-                    onClick={()=>{
-                      navigate(`team/${team.id}`)
+                    onClick={() => {
+                      navigate(`team/${team.id}`);
                     }}
                   >
                     <td
@@ -179,10 +185,10 @@ export default function TeamTable({ teamData, isLoading }) {
                     </td>
                     <td
                       className="py-2 px-4 border-b truncate cursor-pointer text-center"
-                      title={team.Team}
+                      title={team.teamName}
                       style={{ maxWidth: '170px' }}
                     >
-                      {truncateText(team.Team, 50)}
+                      {truncateText(team.teamName, 50)}
                     </td>
                     <td
                       className="py-2 px-4 border-b truncate cursor-pointer text-center"

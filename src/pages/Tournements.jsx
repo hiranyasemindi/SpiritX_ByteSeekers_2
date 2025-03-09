@@ -1,39 +1,76 @@
-import React from 'react'
-import TournementStats from '../components/TournementStats'
-import TeamTable from '../components/TeamTable'
+import React, { useEffect, useState } from 'react';
+import TournementStats from '../components/TournementStats';
+import TeamTable from '../components/TeamTable';
+import { onValue, ref } from 'firebase/database';
+import { db } from '../services/firebase';
 
 export default function Tournements() {
-  const tournements = [
-    {
-      id: 1,
-      Name: 'Chamika Chandimal',
-      Team: 'University of the Visual & Performing Arts',
-      points: 100000,
-    },
-    {
-      id: 2,
-      Name: 'Chamika Chandimal',
-      Team: 'University of the Visual & Performing Arts',
-      points: 130,
-    },
-    {
-      id: 3,
-      Name: 'Chamika Chandimal',
-      Team: 'University of the Visual & Performing Arts',
-      points: 100,
-    },
-    {
-      id: 4,
-      Name: 'Chamika Chandimal',
-      Team: 'University of the Visual & Performing Arts',
-      points: 100,
-    },
-  ]
+  const [players, setPlayers] = useState([]);
+  const [teams, setTeams] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const playersRef = ref(db, 'players');
+    onValue(playersRef, (snapshot) => {
+      const playersData = snapshot.val();
+      if (playersData) {
+        const playersList = Object.values(playersData);
+        setPlayers(playersList);
+      }
+    });
+
+    const teamsRef = ref(db, 'teams');
+    onValue(teamsRef, (snapshot) => {
+      const teamsData = snapshot.val();
+      if (teamsData) {
+        const teamsList = Object.keys(teamsData).map((teamId) => {
+          const team = teamsData[teamId];
+          team.ownerName = teamId; // Set the team ID as the ownerName
+          console.log(`Team ID: ${teamId}`); // Log the team ID to the console
+          return team;
+        });
+        setTeams(teamsList);
+      }
+    });
+
+    setIsLoading(false);
+  }, []);
+
+  const calculateStats = () => {
+    let totalRuns = 0;
+    let totalWickets = 0;
+    let highestRunScorer = { playerName: '', totalRuns: 0 };
+    let highestWicketTaker = { playerName: '', wickets: 0 };
+
+    players.forEach((player) => {
+      totalRuns += parseInt(player.totalRuns, 10) || 0;
+      totalWickets += parseInt(player.wickets, 10) || 0;
+
+      if (player.totalRuns > highestRunScorer.totalRuns) {
+        highestRunScorer = { playerName: player.playerName, totalRuns: player.totalRuns };
+      }
+
+      if (player.wickets > highestWicketTaker.wickets) {
+        highestWicketTaker = { playerName: player.playerName, wickets: player.wickets };
+      }
+    });
+
+    return { totalRuns, totalWickets, highestRunScorer, highestWicketTaker };
+  };
+
+  const { totalRuns, totalWickets, highestRunScorer, highestWicketTaker } = calculateStats();
+
   return (
     <>
       <h1 className="text-2xl font-bold mb-6">Tournement Summary</h1>
-      <TournementStats />
-      <TeamTable teamData={tournements} />
+      <TournementStats
+        runs={totalRuns}
+        wickets={totalWickets}
+        highestRunScorer={highestRunScorer}
+        highestWicketTaker={highestWicketTaker}
+        isLoading={isLoading}
+      />
+      <TeamTable teamData={teams} />
     </>
-  )
+  );
 }
