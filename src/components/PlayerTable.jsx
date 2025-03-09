@@ -26,7 +26,7 @@ const PlayerTable = ({ playerList, onAddNewPlayer, isLoading, isUser }) => {
   useEffect(() => {
     const handleResize = () => {
       setIsMobile(window.innerWidth <= 768);
-      setItemsPerPage(window.innerWidth <= 768 ? 5 : 6);
+      setItemsPerPage(window.innerWidth <= 768 ? 5 : 10);
     };
 
     handleResize();

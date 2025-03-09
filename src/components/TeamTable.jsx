@@ -6,14 +6,14 @@ import { useNavigate } from 'react-router-dom';
 
 export default function TeamTable({ teamData = [], isLoading }) {
   const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage, setItemsPerPage] = useState(13);
+  const [itemsPerPage, setItemsPerPage] = useState();
   const totalPages = Math.ceil((teamData?.length || 0) / itemsPerPage);
   const prevRankRef = useRef();
   const navigate = useNavigate();
 
   useEffect(() => {
     const handleResize = () => {
-      setItemsPerPage(window.innerWidth <= 768 ? 5 : 8);
+      setItemsPerPage(window.innerWidth <= 768 ? 5 : 10);
     };
 
     handleResize();
