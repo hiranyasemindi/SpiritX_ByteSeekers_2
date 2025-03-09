@@ -3,18 +3,21 @@ import Header from '../components/Header';
 import Button from '../components/Button';
 import Carousel from '../components/Carousel';
 import Lottie from 'lottie-react';
-import lottie1 from '../images/lottie1.json'; 
+import lottie1 from '../images/lottie1.json';
 import ParagraphCard from '../components/ParagraphCard';
 import Footer from '../components/Footer';
 import { useNavigate } from 'react-router-dom';
 
 const LandingPage = () => {
-    const navigate = useNavigate()
+    const navigate = useNavigate();
+
     return (
-        <div className="min-h-screen bg-gray-100">
+        <div className="snap-y snap-mandatory h-screen overflow-y-scroll">
+            {/* Header */}
             <Header />
 
-            <main className="relative h-screen flex items-center justify-center">
+            {/* Hero Section */}
+            <section className="snap-start h-screen flex items-center justify-center relative">
                 <div className="absolute inset-0">
                     <img
                         src="./images/img2.png"
@@ -29,13 +32,16 @@ const LandingPage = () => {
                     <p className="text-xl mb-8">
                         Your ultimate destination for live scores, player stats, match schedules, and everything cricket!
                     </p>
-
                 </div>
-            </main>
+            </section>
 
-            <Carousel />
+            {/* Carousel Section */}
+            <section className="snap-start h-screen flex items-center justify-center bg-gray-50">
+                <Carousel />
+            </section>
 
-            <section className="h-screen flex items-center justify-center bg-gray-50 relative overflow-hidden">
+            {/* Lottie and Paragraph Section */}
+            <section className="snap-start h-screen flex items-center justify-center bg-gray-50 relative overflow-hidden">
                 <div className="absolute inset-0">
                     <svg viewBox="0 0 1440 320" className="absolute bottom-0 w-full">
                         <path
@@ -54,7 +60,8 @@ const LandingPage = () => {
                 </div>
             </section>
 
-            <section className="h-screen flex items-center justify-center bg-gray-50 relative overflow-hidden">
+            {/* Team Section */}
+            <section className="snap-start h-screen flex items-center justify-center bg-gray-50 relative overflow-hidden">
                 <div className="relative w-full max-w-6xl mx-auto p-8 flex flex-col md:flex-row items-center gap-12">
                     <div className="w-full md:w-1/2 text-center md:text-left">
                         <h2 className="text-4xl font-bold mb-6 text-primary">
@@ -83,6 +90,8 @@ const LandingPage = () => {
                     </div>
                 </div>
             </section>
+
+            {/* Footer */}
             <Footer />
         </div>
     );
