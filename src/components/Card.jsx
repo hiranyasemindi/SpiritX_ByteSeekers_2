@@ -58,7 +58,7 @@ function Card({ icon, title, value }) {
 
             {icon && <div className="text-primary text-4xl mb-4 z-10">{icon}</div>}
             <h3 className="text-lg font-semibold text-gray-700 z-10">{title}</h3>
-            <p className="text-2xl z-10 font-bold text-primary">{value}</p>
+            <p className="text-2xl z-10 font-bold text-center text-primary">{value}</p>
         </motion.div>
     );
 }

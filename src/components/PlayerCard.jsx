@@ -6,12 +6,12 @@ function PlayerCard({ player }) {
             <div className="flex items-center gap-3">
                 <MdPerson className="text-primary text-3xl" />
                 <div>
-                    <h2 className="text-lg font-bold">{player.name}</h2>
-                    <p className="text-sm text-gray-600">{player.details}</p>
+                    <h2 className="text-lg font-bold">{player.playerName}</h2>
+                    <p className="text-sm text-gray-600">{player.category}</p>
                 </div>
             </div>
             <div className="mt-3 text-right text-lg font-semibold text-gray-800">
-                ${player.value.toLocaleString()}
+                LKR {player.playerValue}.00
             </div>
             
         </div>
