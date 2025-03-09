@@ -2,12 +2,12 @@ import { useEffect, useState } from 'react';
 import { db, ref, onValue } from '../services/firebase';
 import PlayerCard from "../components/PlayerCard";
 import Skeleton from 'react-loading-skeleton';
-import 'react-loading-skeleton/dist/skeleton.css'; // For proper styling
+import 'react-loading-skeleton/dist/skeleton.css';
 
 const YourComponent = () => {
     const [players, setPlayers] = useState([]);
     const [team, setTeam] = useState(null);
-    const [loading, setLoading] = useState(true); // Add loading state
+    const [loading, setLoading] = useState(true);
     const username = localStorage.getItem("username");
 
     useEffect(() => {
@@ -23,11 +23,11 @@ const YourComponent = () => {
                 } else {
                     setPlayers([]);
                 }
-                setLoading(false); // Set loading to false when data is fetched
+                setLoading(false);
             } else {
                 setTeam(null);
                 setPlayers([]);
-                setLoading(false); // Set loading to false when no data is available
+                setLoading(false);
             }
         });
 
