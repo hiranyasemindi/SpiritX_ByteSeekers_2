@@ -17,7 +17,7 @@ const LandingPage = () => {
             <main className="relative h-screen flex items-center justify-center">
                 <div className="absolute inset-0">
                     <img
-                        src="https://img.freepik.com/free-photo/cricket-match-with-player_23-2151702205.jpg?t=st=1741438164~exp=1741441764~hmac=5a50d5326ce1361007787013efbd9752947ba815fb0d134bc9ba792b9f447005&w=1380"
+                        src="./images/img2.png"
                         alt="Cricket Stadium"
                         className="w-full h-full object-cover"
                     />
