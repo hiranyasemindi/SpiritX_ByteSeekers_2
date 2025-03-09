@@ -73,53 +73,54 @@ const Carousel = () => {
     console.log('Universities state:', universities);
 
     return (
-        <section className="h-screen flex items-center justify-center bg-gray-50">
-            <div className="container mx-auto px-6 relative">
-                <h2 className="text-3xl font-bold text-center mb-20 text-primary">
-                    Inter-University Cricket Teams
-                </h2>
+        <section className="h-[500px] md:h-[700px] flex items-center justify-center relative bg-cover bg-center" 
+         style={{ backgroundImage: "url('./images/c_bg.png')" }}>
+    {/* Dark Overlay */}
+    <div className="absolute inset-0 bg-black bg-opacity-50"></div>
 
-                {universities.length === 0 ? (
-                    <div>Loading...</div>
-                ) : (
-                    <Swiper
-                        modules={[Navigation, Autoplay]}
-                        spaceBetween={30}
-                        slidesPerView={1}
-                        loop={true}
-                        autoplay={{ delay: 3000 }}
-                        navigation={{
-                            prevEl: prevRef.current,
-                            nextEl: nextRef.current,
-                        }}
-                        onInit={(swiper) => {
-                            swiper.params.navigation.prevEl = prevRef.current;
-                            swiper.params.navigation.nextEl = nextRef.current;
-                            swiper.navigation.init();
-                            swiper.navigation.update();
-                        }}
-                        autoHeight={true}
-                        breakpoints={{
-                            640: {
-                                slidesPerView: 2,
-                            },
-                            1024: {
-                                slidesPerView: 3,
-                            },
-                        }}
-                    >
-                        {universities.map((uni) => (
-                            <SwiperSlide key={uni.id} className="min-h-[300px]">
-                                <CarouselCard
-                                    name={uni.name}
-                                    description={`${uni.playersCount} Players`}
-                                />
-                            </SwiperSlide>
-                        ))}
-                    </Swiper>
-                )}
-            </div>
-        </section>
+    <div className="container mx-auto px-6 relative z-10">
+        <h2 className="text-3xl font-bold text-center mb-20 text-white">
+            Inter-University Cricket Teams
+        </h2>
+
+        {universities.length === 0 ? (
+            <div className="text-white">Loading...</div>
+        ) : (
+            <Swiper
+                modules={[Navigation, Autoplay]}
+                spaceBetween={30}
+                slidesPerView={1}
+                loop={true}
+                autoplay={{ delay: 3000 }}
+                navigation={{
+                    prevEl: prevRef.current,
+                    nextEl: nextRef.current,
+                }}
+                onInit={(swiper) => {
+                    swiper.params.navigation.prevEl = prevRef.current;
+                    swiper.params.navigation.nextEl = nextRef.current;
+                    swiper.navigation.init();
+                    swiper.navigation.update();
+                }}
+                autoHeight={true}
+                breakpoints={{
+                    640: { slidesPerView: 2 },
+                    1024: { slidesPerView: 3 },
+                }}
+            >
+                {universities.map((uni) => (
+                    <SwiperSlide key={uni.id} className="min-h-[300px]">
+                        <CarouselCard
+                            name={uni.name}
+                            description={`${uni.playersCount} Players`}
+                        />
+                    </SwiperSlide>
+                ))}
+            </Swiper>
+        )}
+    </div>
+</section>
+
     );
 
 };
