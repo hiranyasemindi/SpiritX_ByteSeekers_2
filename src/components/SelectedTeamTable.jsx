@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
+import Skeleton from 'react-loading-skeleton';
+import 'react-loading-skeleton/dist/skeleton.css';
 
-const SelectedTeamTable = ({ team, handleClear }) => {
+const SelectedTeamTable = ({ team, handleClear, isLoading }) => {
     const [currentPage, setCurrentPage] = useState(1);
     const itemsPerPage = 5;
 
@@ -80,7 +82,18 @@ const SelectedTeamTable = ({ team, handleClear }) => {
                     </tr>
                 </thead>
                 <tbody>
-                    {currentPlayers.length === 0 ? (
+                    {isLoading ? (
+                        // Show skeleton loading when data is being fetched
+                        Array.from({ length: itemsPerPage }).map((_, index) => (
+                            <tr key={index}>
+                                <td className="py-2 px-4 border-b"><Skeleton /></td>
+                                <td className="py-2 px-4 border-b"><Skeleton /></td>
+                                <td className="py-2 px-4 border-b"><Skeleton /></td>
+                                <td className="py-2 px-4 border-b"><Skeleton /></td>
+                                <td className="py-2 px-4 border-b"><Skeleton /></td>
+                            </tr>
+                        ))
+                    ) : currentPlayers.length === 0 ? (
                         <tr>
                             <td colSpan="5" className="py-2 px-4 border-b text-center">No players added yet.</td>
                         </tr>

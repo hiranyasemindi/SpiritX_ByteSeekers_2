@@ -237,6 +237,8 @@ function Team({ team }) {
       <SelectedTeamTable
         team={teamPlayers}
         handleClear={(id) => handleClear(id)}
+        isLoading={loading}
+
       />
       <h1 className="text-2xl font-bold mb-6">Select Players</h1>
 
@@ -262,6 +264,7 @@ function Team({ team }) {
         totalPages={totalPages}
         currentPage={currentPage}
         handlePageChange={handlePageChange}
+        isLoading={loading}
       />
     </div>
   );

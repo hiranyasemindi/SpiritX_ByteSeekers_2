@@ -1,13 +1,15 @@
 import React from "react";
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 
 function SelectPlayersTable({
     currentPlayers,
     totalPages,
     currentPage,
     onAddPlayer,
-    handlePageChange
+    handlePageChange,
+    isLoading,
 }) {
-
     const renderPagination = () => {
         const paginationButtons = [];
         const maxPagesToShow = 5;
@@ -35,7 +37,9 @@ function SelectPlayersTable({
                 <button
                     key={i}
                     onClick={() => handlePageChange(i)}
-                    className={`px-4 py-2 mx-1 border rounded-md ${currentPage === i ? "bg-primary text-white" : "bg-white"}`}
+                    className={`px-4 py-2 mx-1 border rounded-md ${
+                        currentPage === i ? "bg-primary text-white" : "bg-white"
+                    }`}
                 >
                     {i}
                 </button>
@@ -44,13 +48,17 @@ function SelectPlayersTable({
 
         if (startPage > 1) {
             paginationButtons.unshift(
-                <span key="start-ellipsis" className="px-4 py-2 mx-1">...</span>
+                <span key="start-ellipsis" className="px-4 py-2 mx-1">
+                    ...
+                </span>
             );
         }
 
         if (endPage < totalPages) {
             paginationButtons.push(
-                <span key="end-ellipsis" className="px-4 py-2 mx-1">...</span>
+                <span key="end-ellipsis" className="px-4 py-2 mx-1">
+                    ...
+                </span>
             );
         }
 
@@ -69,18 +77,45 @@ function SelectPlayersTable({
                     </tr>
                 </thead>
                 <tbody>
-                    {currentPlayers.length === 0 ? (
+                    {isLoading ? (
+                        // Show skeleton loading when data is being fetched
+                        Array.from({ length: 5 }).map((_, index) => (
+                            <tr key={index}>
+                                <td className="py-2 px-4 border-b">
+                                    <Skeleton />
+                                </td>
+                                <td className="py-2 px-4 border-b">
+                                    <Skeleton />
+                                </td>
+                                <td className="py-2 px-4 border-b">
+                                    <Skeleton />
+                                </td>
+                                <td className="py-2 px-4 border-b">
+                                    <Skeleton />
+                                </td>
+                            </tr>
+                        ))
+                    ) : currentPlayers.length === 0 ? (
                         <tr>
-                            <td colSpan="4" className="py-2 px-4 border-b text-center">No players available.</td>
+                            <td colSpan="4" className="py-2 px-4 border-b text-center">
+                                No players available.
+                            </td>
                         </tr>
                     ) : (
                         currentPlayers.map((player) => (
                             <tr key={player.id}>
                                 <td className="py-2 px-4 border-b">{player.playerName}</td>
                                 <td className="py-2 px-4 border-b">{player.university}</td>
-                                <td className="py-2 px-4 border-b">LKR {player.playerValue} .00</td>
-                                <td className="py-2 px-4 border-b" onClick={() => onAddPlayer(player.key)}>
-                                    <button className="text-green-500 hover:text-green-700">Add</button>
+                                <td className="py-2 px-4 border-b">
+                                    LKR {player.playerValue}.00
+                                </td>
+                                <td
+                                    className="py-2 px-4 border-b"
+                                    onClick={() => onAddPlayer(player.key)}
+                                >
+                                    <button className="text-green-500 hover:text-green-700">
+                                        Add
+                                    </button>
                                 </td>
                             </tr>
                         ))
