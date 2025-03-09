@@ -85,8 +85,10 @@ export const validatePlayer = (data) => {
     }
 
     if (data.wickets && data.wickets < 0) {
+        console.log(data.wickets)
         errors.wickets = "Wickets must be a positive number";
-    } else if (!data.wickets) {
+    } else if (data.wickets == null && data.wickets == "") {
+        console.log(data.wickets)
         errors.wickets = "Wickets are required";
     }
 

@@ -6,11 +6,11 @@ import Button from "./Button";
 import { validatePlayer } from "../utils/validations";
 import toast from "react-hot-toast";
 import { ref, set, push, db, get } from "../services/firebase";
+import { calculateBattingAverage, calculateBattingStrikeRate, calculateBowlingStrikeRate, calculateEconomyRate, calculatePlayerPoints, calculatePlayerValue } from "../utils/helper";
 
 const PlayerForm = () => {
     const navigate = useNavigate();
     const location = useLocation();
-
     const isUpdate = location.pathname.includes("edit");
     const { player } = location.state || {};
 
@@ -18,16 +18,28 @@ const PlayerForm = () => {
         navigate("/admin/players");
     }
 
+    const calculateBudget = (player) => {
+        const battingStrike = calculateBattingStrikeRate(player.totalRuns, player.ballsFaced);
+        const battingAverage = calculateBattingAverage(player.totalRuns, player.inningsPlayed);
+        const bowlingStrikeRate = calculateBowlingStrikeRate(player.oversBowled, player.wickets);
+        const economyRate = calculateEconomyRate(player.runsConceded, player.oversBowled);
+        const playerPoints = calculatePlayerPoints(battingStrike, battingAverage, bowlingStrikeRate, economyRate);
+        console.log(battingStrike, battingAverage, bowlingStrikeRate, economyRate, playerPoints);
+        const playerValue = calculatePlayerValue(playerPoints);
+        return playerValue;
+    };
+
     const [formData, setFormData] = useState({
         playerName: player?.playerName || "",
-        university: "" || player?.university,
-        category: "" || player?.category,
-        totalRuns: "" || player?.totalRuns,
-        ballsFaced: "" || player?.ballsFaced,
-        inningsPlayed: "" || player?.inningsPlayed,
-        wickets: "" || player?.wickets,
-        oversBowled: "" || player?.oversBowled,
-        runsConceded: "" || player?.runsConceded,
+        university: player?.university || "",
+        category: player?.category || "",
+        totalRuns: player?.totalRuns || 0,
+        ballsFaced: player?.ballsFaced || 0,
+        inningsPlayed: player?.inningsPlayed || 0,
+        wickets: player?.wickets || 0,
+        oversBowled: player?.oversBowled || 0,
+        runsConceded: player?.runsConceded || 0,
+        playerValue: player?.playerValue || 0,
     });
 
     const [errors, setErrors] = useState({});
@@ -62,8 +74,14 @@ const PlayerForm = () => {
     }, []);
 
 
+
     const handleChange = (e) => {
-        setFormData({ ...formData, [e.target.name]: e.target.value });
+        const updatedData = { ...formData, [e.target.name]: e.target.value };
+
+        const newPlayerValue = calculateBudget(updatedData);
+        console.log(newPlayerValue)
+
+        setFormData({ ...updatedData, playerValue: newPlayerValue });
     };
 
     const handleSubmit = (e) => {

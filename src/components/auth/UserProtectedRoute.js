@@ -8,7 +8,7 @@ const UserProtectedRoute = ({ children }) => {
     if (!token || !expiry || new Date().getTime() > parseInt(expiry)) {
         localStorage.removeItem('authToken');
         localStorage.removeItem('authExpiry');
-        return <Navigate to="/login" />;
+        return <Navigate to="/user/login" />;
     }
 
     return children;

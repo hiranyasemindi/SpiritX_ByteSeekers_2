@@ -11,7 +11,6 @@ function Team() {
     const [budget, setBudget] = useState(9000000);
     const maxPlayers = 11;
 
-    // Pagination States
     const [currentPage, setCurrentPage] = useState(1);
     const [itemsPerPage] = useState(5); // You can change the number of items per page
 
@@ -48,13 +47,13 @@ function Team() {
     }, []);
 
     const updateBudget = (players) => {
-        const totalSpent = players.reduce((sum, player) => sum + player.budget, 0);
+        const totalSpent = players.reduce((sum, player) => sum + player.playerValue , 0);
         setBudget(9000000 - totalSpent);
     };
 
     const handleCategoryChange = (category) => {
         setSelectedCategory(category);
-        setCurrentPage(1); // Reset to first page whenever category changes
+        setCurrentPage(1); 
     };
 
     const handleRemovePlayer = (playerId) => {
@@ -180,7 +179,7 @@ function Team() {
                                 <td className="py-2 px-4 border-b">{player.playerName}</td>
                                 <td className="py-2 px-4 border-b">{player.university}</td>
                                 <td className="py-2 px-4 border-b">{player.category}</td>
-                                <td className="py-2 px-4 border-b">LKR {player.budget.toLocaleString()}</td>
+                                <td className="py-2 px-4 border-b">LKR {player.playerValue}.00 </td>
                                 <td className="py-2 px-4 border-b">
                                     <button onClick={() => handleRemovePlayer(player.id)} className="text-red-500 hover:text-red-700">Remove</button>
                                 </td>
@@ -223,7 +222,7 @@ function Team() {
                             <tr key={player.id}>
                                 <td className="py-2 px-4 border-b">{player.playerName}</td>
                                 <td className="py-2 px-4 border-b">{player.university}</td>
-                                <td className="py-2 px-4 border-b">LKR {player.budget}</td>
+                                <td className="py-2 px-4 border-b">LKR {player.playerValue}</td>
                                 <td className="py-2 px-4 border-b">
                                     <button className="text-green-500 hover:text-green-700">Add</button>
                                 </td>
